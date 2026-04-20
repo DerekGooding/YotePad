@@ -40,7 +40,7 @@ public class GoToLineDialog : Form
         _btnGoTo.Location = new Point(103, 72);
         _btnGoTo.Click += (s, e) =>
         {
-            if (int.TryParse(_txtLineNumber.Text, out int line) && line >= 1 && line <= maxLine)
+            if (int.TryParse(_txtLineNumber.Text, out var line) && line >= 1 && line <= maxLine)
             {
                 LineNumber = line;
                 DialogResult = DialogResult.OK;

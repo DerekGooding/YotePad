@@ -10,7 +10,7 @@ public class YoteTextBox : TextBox
     {
         if (m.Msg == WM_PASTE && Clipboard.ContainsText())
         {
-            string text = Clipboard.GetText();
+            var text = Clipboard.GetText();
             text = text.Replace("\r\n", "\n").Replace("\n", "\r\n");
             SelectedText = text;
             return;
@@ -36,7 +36,7 @@ public class YoteTextBox : TextBox
             SelectionStart < TextLength &&
             !char.IsControl(e.KeyChar))
         {
-            char nextChar = Text[SelectionStart];
+            var nextChar = Text[SelectionStart];
 
             if (nextChar is not '\r' and not '\n')
             {
@@ -71,8 +71,8 @@ public class YoteTextBox : TextBox
         if (IsOverwriteMode)
         {
             // Measure roughly how wide a character is in the current font
-            int width = TextRenderer.MeasureText("W", Font).Width / 2;
-            int height = Font.Height;
+            var width = TextRenderer.MeasureText("W", Font).Width / 2;
+            var height = Font.Height;
 
             // Passing IntPtr.Zero creates a solid black/white inverted block
             NativeMethods.CreateCaret(Handle, IntPtr.Zero, width, height);

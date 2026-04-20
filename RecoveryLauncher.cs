@@ -11,10 +11,10 @@ public static class RecoveryLauncher
         try
         {
             // Step 1: claim the .ypr file by renaming it so no other instance scans it
-            string claimedPath = file.RecoveryFilePath;
+            var claimedPath = file.RecoveryFilePath;
             if (!claimedPath.EndsWith(".restoring"))
             {
-                string renamed = file.RecoveryFilePath + ".restoring";
+                var renamed = file.RecoveryFilePath + ".restoring";
                 try
                 {
                     File.Move(file.RecoveryFilePath, renamed);
@@ -24,7 +24,7 @@ public static class RecoveryLauncher
             }
 
             // Step 2: write content to a temp file for the new instance to load
-            string tempPath = Path.Combine(
+            var tempPath = Path.Combine(
                 Path.GetTempPath(),
                 $"yotepad_restore_{Guid.NewGuid()}.txt");
             File.WriteAllText(tempPath, file.Content);
@@ -33,14 +33,14 @@ public static class RecoveryLauncher
             try { File.Delete(claimedPath); } catch { }
 
             // Step 4: calculate staggered position for cascade effect
-            int offset = 24 * (staggerIndex + 1);
-            Point spawnPos = new Point(basePos.X + offset, basePos.Y + offset);
-            string posArg = $"{spawnPos.X},{spawnPos.Y}";
+            var offset = 24 * (staggerIndex + 1);
+            var spawnPos = new Point(basePos.X + offset, basePos.Y + offset);
+            var posArg = $"{spawnPos.X},{spawnPos.Y}";
 
             // Step 5: launch the new instance
             // Note: --pos handler in Program.cs applies +24 to the passed position,
             // so we pass the raw target minus 24 to land exactly where we want
-            string adjustedPos = $"{spawnPos.X - 24},{spawnPos.Y - 24}";
+            var adjustedPos = $"{spawnPos.X - 24},{spawnPos.Y - 24}";
 
             Process.Start(
              Application.ExecutablePath,

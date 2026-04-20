@@ -52,7 +52,7 @@ public class HelpDialog : Form
         if (backColor.R < 100)
         {
             // Force the Window title bar to use dark mode (Windows 11)
-            int useImmersiveDarkMode = 1;
+            var useImmersiveDarkMode = 1;
             DwmSetWindowAttribute(Handle, 20, ref useImmersiveDarkMode, sizeof(int));
 
             // Force the internal scrollbar to use the dark explorer theme

@@ -36,7 +36,7 @@ public class RecoveryDialog : Form
         TopMost = true;
 
         // Header label
-        Label lblHeader = new Label
+        var lblHeader = new Label
         {
             Text = "YotePad found unsaved files from a previous session.",
             Location = new Point(12, 12),
@@ -44,7 +44,7 @@ public class RecoveryDialog : Form
             Font = new Font("Segoe UI", 9.5f, FontStyle.Regular)
         };
 
-        Label lblSub = new Label
+        var lblSub = new Label
         {
             Text = "Select the files you want to restore:",
             Location = new Point(12, 34),
@@ -78,7 +78,7 @@ public class RecoveryDialog : Form
 
     private void PopulateRows()
     {
-        int y = 4;
+        var y = 4;
         foreach (var file in _files)
         {
             var row = new RecoveryRowControl(file, _themeManager);
@@ -93,7 +93,7 @@ public class RecoveryDialog : Form
 
     private void ReflowRows()
     {
-        int y = 4;
+        var y = 4;
         foreach (var row in _rows)
         {
             row.Location = new Point(4, y);
@@ -104,7 +104,7 @@ public class RecoveryDialog : Form
     private void ShowPreview(RecoveryFile file)
     {
         // Spawn preview to the right of the recovery dialog
-        Point spawnLocation = new Point(
+        var spawnLocation = new Point(
             Location.X + Width + 10,
             Location.Y
         );

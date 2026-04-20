@@ -20,7 +20,7 @@ public class PrintService
 
     public void ShowPageSetup()
     {
-        using PageSetupDialog setupDialog = new PageSetupDialog();
+        using var setupDialog = new PageSetupDialog();
         setupDialog.Document = _printDocument;
         setupDialog.ShowDialog();
     }
@@ -32,7 +32,7 @@ public class PrintService
         _textToPrint = text;
         _printFont = font;
 
-        using PrintDialog printDialog = new PrintDialog();
+        using var printDialog = new PrintDialog();
         printDialog.Document = _printDocument;
         printDialog.UseEXDialog = true; // Use the modern Windows print dialog
 
@@ -56,13 +56,13 @@ public class PrintService
         if (_printFont == null || e.Graphics == null) return;
 
         // Define the area where we are allowed to print based on the page setup margins
-        RectangleF printArea = new RectangleF(
+        var printArea = new RectangleF(
             e.MarginBounds.Left,
             e.MarginBounds.Top,
             e.MarginBounds.Width,
             e.MarginBounds.Height);
 
-        string textRemaining = _textToPrint[_currentCharIndex..];
+        var textRemaining = _textToPrint[_currentCharIndex..];
 
         // Ask the Graphics object to measure how many characters will fit in the print box
         e.Graphics.MeasureString(
@@ -70,8 +70,8 @@ public class PrintService
             _printFont,
             printArea.Size,
             StringFormat.GenericTypographic,
-            out int charactersFitted,
-            out int linesFilled);
+            out var charactersFitted,
+            out var linesFilled);
 
         // Draw the text onto the paper
         e.Graphics.DrawString(
@@ -95,7 +95,7 @@ public class PrintService
         _textToPrint = text;
         _printFont = font;
 
-        using PrintPreviewDialog previewDialog = new PrintPreviewDialog();
+        using var previewDialog = new PrintPreviewDialog();
         previewDialog.Document = _printDocument;
         previewDialog.ShowIcon = false;
         previewDialog.Text = "YotePad Print Preview";

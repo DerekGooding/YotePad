@@ -47,7 +47,7 @@ public class FindReplaceDialog : Form
         _btnToggleReplace.Location = new Point(10, 12);
         _btnToggleReplace.Click += (s, e) => SetMode(!_isExpanded);
 
-        Label lblFind = new Label { Text = "Find what:", Location = new Point(40, 15), AutoSize = true };
+        var lblFind = new Label { Text = "Find what:", Location = new Point(40, 15), AutoSize = true };
         _txtFind.Location = new Point(115, 12);
         _txtFind.Size = new Size(160, 23);
 
@@ -60,7 +60,7 @@ public class FindReplaceDialog : Form
 
         _txtFind.TextChanged += (s, e) =>
         {
-            bool hasText = _txtFind.Text.Length > 0;
+            var hasText = _txtFind.Text.Length > 0;
             _btnFindNext.Enabled = hasText;
             _btnReplace.Enabled = hasText;
             _btnReplaceAll.Enabled = hasText;
@@ -92,10 +92,10 @@ public class FindReplaceDialog : Form
 
         void customPaint(object? s, PaintEventArgs e)
         {
-            Button btn = (Button)s!;
+            var btn = (Button)s!;
             if (!btn.Enabled)
             {
-                using (SolidBrush bgBrush = new SolidBrush(BackColor))
+                using (var bgBrush = new SolidBrush(BackColor))
                 {
                     e.Graphics.FillRectangle(bgBrush, e.ClipRectangle);
                 }

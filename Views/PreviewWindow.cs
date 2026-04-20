@@ -25,7 +25,7 @@ public class PreviewWindow : Form
 
     private void InitializeComponent(Point spawnLocation)
     {
-        string title = string.IsNullOrEmpty(_file.OriginalFilePath)
+        var title = string.IsNullOrEmpty(_file.OriginalFilePath)
             ? "Preview — Untitled"
             : $"Preview — {System.IO.Path.GetFileName(_file.OriginalFilePath)}";
 
@@ -39,7 +39,7 @@ public class PreviewWindow : Form
         TopMost = false;
 
         // Button strip at the top
-        Panel btnPanel = new Panel
+        var btnPanel = new Panel
         {
             Dock = DockStyle.Top,
             Height = 36
@@ -79,7 +79,7 @@ public class PreviewWindow : Form
         // Apply dark scrollbar after handle is created
         Load += (s, e) =>
         {
-            int darkVal = _themeManager.IsDarkMode ? 1 : 0;
+            var darkVal = _themeManager.IsDarkMode ? 1 : 0;
             NativeMethods.DwmSetWindowAttribute(Handle, NativeMethods.DWMWA_USE_IMMERSIVE_DARK_MODE, ref darkVal, sizeof(int));
             NativeMethods.SetWindowTheme(_txtPreview.Handle, _themeManager.IsDarkMode ? "DarkMode_Explorer" : "Explorer", null);
         };

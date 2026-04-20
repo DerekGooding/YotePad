@@ -14,7 +14,7 @@ public class ThemeManager
     {
         try
         {
-            using RegistryKey? key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
             if (key?.GetValue("AppsUseLightTheme") is int lightTheme)
             {
                 IsDarkMode = (lightTheme == 0);
@@ -30,7 +30,7 @@ public class ThemeManager
         // Call the undocumented API: 2 = ForceDark, 0 = Default Light
         try { NativeMethods.SetPreferredAppMode(IsDarkMode ? 2 : 0); } catch { }
 
-        int darkVal = IsDarkMode ? 1 : 0;
+        var darkVal = IsDarkMode ? 1 : 0;
         NativeMethods.DwmSetWindowAttribute(form.Handle, NativeMethods.DWMWA_USE_IMMERSIVE_DARK_MODE, ref darkVal, sizeof(int));
 
         NativeMethods.SetWindowTheme(textBox.Handle, IsDarkMode ? "DarkMode_Explorer" : "Explorer", null);
@@ -85,16 +85,16 @@ public class YotePadMenuRenderer(ThemeManager theme) : ToolStripProfessionalRend
             return;
         }
 
-        Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
+        var rect = new Rectangle(Point.Empty, e.Item.Size);
 
         if (e.Item.Selected || e.Item.Pressed)
         {
-            using SolidBrush brush = new SolidBrush(Color.FromArgb(80, 80, 80));
+            using var brush = new SolidBrush(Color.FromArgb(80, 80, 80));
             e.Graphics.FillRectangle(brush, rect);
         }
         else
         {
-            using SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor);
+            using var brush = new SolidBrush(_theme.MenuBackgroundColor);
             e.Graphics.FillRectangle(brush, rect);
         }
     }
@@ -107,7 +107,7 @@ public class YotePadMenuRenderer(ThemeManager theme) : ToolStripProfessionalRend
             return;
         }
 
-        using SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor);
+        using var brush = new SolidBrush(_theme.MenuBackgroundColor);
         e.Graphics.FillRectangle(brush, e.AffectedBounds);
     }
 
@@ -119,8 +119,8 @@ public class YotePadMenuRenderer(ThemeManager theme) : ToolStripProfessionalRend
             return;
         }
 
-        int y = e.Item.Height / 2;
-        using Pen pen = new Pen(Color.FromArgb(70, 70, 70));
+        var y = e.Item.Height / 2;
+        using var pen = new Pen(Color.FromArgb(70, 70, 70));
         e.Graphics.DrawLine(pen, 4, y, e.Item.Width - 4, y);
     }
 

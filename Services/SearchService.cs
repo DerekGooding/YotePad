@@ -19,11 +19,11 @@ public class SearchService
     {
         if (string.IsNullOrEmpty(fullText) || string.IsNullOrEmpty(searchTerm)) return -1;
 
-        StringComparison comparison = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+        var comparison = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
         if (searchDown)
         {
-            int index = startIndex < fullText.Length
+            var index = startIndex < fullText.Length
                 ? FindNext(fullText, searchTerm, startIndex, comparison, matchWholeWord)
                 : -1;
 
@@ -35,7 +35,7 @@ public class SearchService
         }
         else
         {
-            int index = startIndex > 0
+            var index = startIndex > 0
                 ? FindPrevious(fullText, searchTerm, startIndex - 1, comparison, matchWholeWord)
                 : -1;
 
@@ -49,10 +49,10 @@ public class SearchService
 
     private int FindNext(string fullText, string searchTerm, int fromIndex, StringComparison comparison, bool matchWholeWord)
     {
-        int pos = fromIndex;
+        var pos = fromIndex;
         while (pos <= fullText.Length - searchTerm.Length)
         {
-            int found = fullText.IndexOf(searchTerm, pos, comparison);
+            var found = fullText.IndexOf(searchTerm, pos, comparison);
             if (found == -1) return -1;
             if (!matchWholeWord || IsWholeWordMatch(fullText, found, searchTerm.Length))
                 return found;
@@ -63,10 +63,10 @@ public class SearchService
 
     private int FindPrevious(string fullText, string searchTerm, int fromIndex, StringComparison comparison, bool matchWholeWord)
     {
-        int pos = fromIndex;
+        var pos = fromIndex;
         while (pos >= 0)
         {
-            int found = fullText.LastIndexOf(searchTerm, pos, pos + 1, comparison);
+            var found = fullText.LastIndexOf(searchTerm, pos, pos + 1, comparison);
             if (found == -1) return -1;
             if (!matchWholeWord || IsWholeWordMatch(fullText, found, searchTerm.Length))
                 return found;
@@ -82,7 +82,7 @@ public class SearchService
             return false;
 
         // Check character after — must be end of text or non-word character
-        int after = index + length;
+        var after = index + length;
         return after >= fullText.Length || !IsWordChar(fullText[after]);
     }
 
@@ -92,17 +92,17 @@ public class SearchService
     {
         if (string.IsNullOrEmpty(fullText) || string.IsNullOrEmpty(searchTerm)) return fullText;
 
-        StringComparison comparison = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+        var comparison = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
         if (!matchWholeWord)
             return fullText.Replace(searchTerm, replaceTerm ?? string.Empty, comparison);
 
         // Whole word replace — walk the string manually
         var result = new System.Text.StringBuilder();
-        int pos = 0;
+        var pos = 0;
         while (pos < fullText.Length)
         {
-            int found = fullText.IndexOf(searchTerm, pos, comparison);
+            var found = fullText.IndexOf(searchTerm, pos, comparison);
             if (found == -1)
             {
                 result.Append(fullText, pos, fullText.Length - pos);

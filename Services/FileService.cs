@@ -31,7 +31,7 @@ public class FileService
 
     public string? OpenFile()
     {
-        using OpenFileDialog ofd = new OpenFileDialog { Filter = FileFilter, FilterIndex = 1 };
+        using var ofd = new OpenFileDialog { Filter = FileFilter, FilterIndex = 1 };
         if (ofd.ShowDialog() == DialogResult.OK)
         {
             try
@@ -49,9 +49,9 @@ public class FileService
 
     public string LoadFile(string path)
     {
-        byte[] rawBytes = File.ReadAllBytes(path);
+        var rawBytes = File.ReadAllBytes(path);
         CurrentEncoding = DetectEncoding(rawBytes);
-        string content = CurrentEncoding.GetString(rawBytes);
+        var content = CurrentEncoding.GetString(rawBytes);
         CurrentFilePath = path;
         return ProcessIncomingText(content);
     }
@@ -73,7 +73,7 @@ public class FileService
 
     public bool SaveFileAs(string content)
     {
-        using SaveFileDialog sfd = new SaveFileDialog { Filter = FileFilter, FilterIndex = 1 };
+        using var sfd = new SaveFileDialog { Filter = FileFilter, FilterIndex = 1 };
         if (sfd.ShowDialog() == DialogResult.OK)
         {
             try
@@ -106,11 +106,11 @@ public class FileService
             ? LineEndingType.CR : LineEndingType.CRLF;
 
         // Normalize everything to standard Windows format for the text box UI
-        string normalized = input.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
+        var normalized = input.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
 
         if (normalized.StartsWith(".LOG"))
         {
-            string timestamp = Environment.NewLine + DateTime.Now.ToString("h:mm tt M/d/yyyy");
+            var timestamp = Environment.NewLine + DateTime.Now.ToString("h:mm tt M/d/yyyy");
             normalized += timestamp;
         }
         return normalized;
@@ -121,7 +121,7 @@ public class FileService
         if (string.IsNullOrEmpty(content)) return content;
 
         // Strip the text down to pure UNIX, then map it to the user's chosen format
-        string normalized = content.Replace("\r\n", "\n").Replace("\r", "\n");
+        var normalized = content.Replace("\r\n", "\n").Replace("\r", "\n");
         return CurrentLineEnding switch
         {
             LineEndingType.LF => normalized,

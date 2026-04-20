@@ -14,8 +14,8 @@ public class RecoveryService : IDisposable
 
     public RecoveryService()
     {
-        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        int pid = Environment.ProcessId;
+        var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        var pid = Environment.ProcessId;
         _recoveryFilePath = Path.Combine(RecoveryFolder, $"recovery_{timestamp}_{pid}.ypr");
         _lockFilePath = _recoveryFilePath + ".lock";
 
@@ -37,8 +37,8 @@ public class RecoveryService : IDisposable
     {
         try
         {
-            string header = $"YOTEPAD_RECOVERY|{originalPath}";
-            string fullContent = header + "\n" + content;
+            var header = $"YOTEPAD_RECOVERY|{originalPath}";
+            var fullContent = header + "\n" + content;
             File.WriteAllText(_recoveryFilePath, fullContent);
             _hasWrittenRecovery = true;
         }
@@ -49,8 +49,8 @@ public class RecoveryService : IDisposable
     {
         try
         {
-            string header = $"YOTEPAD_RECOVERY|{originalPath}";
-            string fullContent = header + "\n" + content;
+            var header = $"YOTEPAD_RECOVERY|{originalPath}";
+            var fullContent = header + "\n" + content;
 
             // This is the magic line. It writes the file without blocking the UI.
             await File.WriteAllTextAsync(_recoveryFilePath, fullContent);
@@ -90,12 +90,12 @@ public class RecoveryService : IDisposable
         {
             if (!Directory.Exists(RecoveryFolder)) return [];
 
-            foreach (string orphan in Directory.GetFiles(RecoveryFolder, "*.ypr.restoring"))
+            foreach (var orphan in Directory.GetFiles(RecoveryFolder, "*.ypr.restoring"))
             {
                 try { File.Delete(orphan); } catch { }
             }
 
-            foreach (string lockFile in Directory.GetFiles(RecoveryFolder, "*.ypr.lock"))
+            foreach (var lockFile in Directory.GetFiles(RecoveryFolder, "*.ypr.lock"))
             {
                 if (!IsFileLocked(lockFile))
                 {
@@ -106,23 +106,23 @@ public class RecoveryService : IDisposable
             var files = Directory.GetFiles(RecoveryFolder, "*.ypr");
             var results = new List<RecoveryFile>();
 
-            foreach (string file in files)
+            foreach (var file in files)
             {
                 try
                 {
-                    string lockPath = file + ".lock";
+                    var lockPath = file + ".lock";
                     if (File.Exists(lockPath) && IsFileLocked(lockPath)) continue;
 
-                    string raw = File.ReadAllText(file);
-                    int newline = raw.IndexOf('\n');
+                    var raw = File.ReadAllText(file);
+                    var newline = raw.IndexOf('\n');
                     if (newline == -1) continue;
 
-                    string header = raw[..newline];
-                    string content = raw[(newline + 1)..];
+                    var header = raw[..newline];
+                    var content = raw[(newline + 1)..];
 
                     if (!header.StartsWith("YOTEPAD_RECOVERY|")) continue;
 
-                    string originalPath = header["YOTEPAD_RECOVERY|".Length..];
+                    var originalPath = header["YOTEPAD_RECOVERY|".Length..];
 
                     results.Add(new RecoveryFile
                     {
@@ -150,7 +150,7 @@ public class RecoveryService : IDisposable
     {
         try
         {
-            using FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            using var fs = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
             return false;
         }
         catch (IOException)

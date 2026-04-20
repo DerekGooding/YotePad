@@ -111,7 +111,7 @@ public partial class MainWindow : Form
             _recoveryTimer.Stop();
 
             // Only write if content actually changed since last recovery write
-            string current = _mainTextBox.Text;
+            var current = _mainTextBox.Text;
             if (current == _lastRecoveryContent) return;
 
             // Don't autosave huge files
@@ -147,7 +147,7 @@ public partial class MainWindow : Form
 
         if (result == DialogResult.OK && dialog.FilesToRestore.Count > 0)
         {
-            int staggerIndex = 0;
+            var staggerIndex = 0;
             foreach (var file in dialog.FilesToRestore)
             {
                 RecoveryLauncher.Launch(file, Location, staggerIndex);
@@ -265,7 +265,7 @@ public partial class MainWindow : Form
 
         fileMenu.DropDownItems.Add(new ToolStripMenuItem("New", null, (s, e) =>
         {
-            string pos = $"{Location.X},{Location.Y}";
+            var pos = $"{Location.X},{Location.Y}";
             System.Diagnostics.Process.Start(Application.ExecutablePath, $"--pos {pos}");
         })
         { ShortcutKeys = Keys.Control | Keys.N });
@@ -387,7 +387,7 @@ public partial class MainWindow : Form
         formatMenu.DropDownItems.Add(_wordWrapMenuItem);
         formatMenu.DropDownItems.Add(new ToolStripMenuItem("Font...", null, (s, e) =>
         {
-            using FontDialog fd = new FontDialog();
+            using var fd = new FontDialog();
             fd.Font = _mainTextBox.Font;
             fd.ShowColor = false;
             if (fd.ShowDialog() == DialogResult.OK)
@@ -477,7 +477,7 @@ public partial class MainWindow : Form
         try
         {
             // We now route this through the sniffer!
-            string content = _fileService.LoadFile(path);
+            var content = _fileService.LoadFile(path);
 
             _mainTextBox.Text = content;
             _mainTextBox.SelectionStart = 0;
@@ -513,8 +513,8 @@ public partial class MainWindow : Form
 
         if (!_searchDialog.Visible)
         {
-            int x = Location.X + (Width - _searchDialog.Width) / 2;
-            int y = Location.Y + (int)(Height * 0.20);
+            var x = Location.X + (Width - _searchDialog.Width) / 2;
+            var y = Location.Y + (int)(Height * 0.20);
             _searchDialog.Location = new Point(x, y);
             _searchDialog.Show(this);
         }
@@ -527,10 +527,10 @@ public partial class MainWindow : Form
     private void ExecuteFind(string term, bool matchCase, bool matchWholeWord, bool searchDown)
     {
         _searchService.UpdateSearchState(term, matchCase, matchWholeWord, searchDown);
-        int startIndex = _mainTextBox.SelectionStart;
+        var startIndex = _mainTextBox.SelectionStart;
         if (searchDown) startIndex += _mainTextBox.SelectionLength;
 
-        int foundIndex = _searchService.Find(_mainTextBox.Text, term, startIndex, matchCase, matchWholeWord, searchDown);
+        var foundIndex = _searchService.Find(_mainTextBox.Text, term, startIndex, matchCase, matchWholeWord, searchDown);
 
         if (foundIndex != -1)
         {
@@ -545,7 +545,7 @@ public partial class MainWindow : Form
 
     private void ExecuteReplace(string term, string replaceTerm, bool matchCase, bool matchWholeWord)
     {
-        StringComparison comp = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+        var comp = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
         if (_mainTextBox.SelectionLength > 0 && _mainTextBox.SelectedText.Equals(term, comp))
         {
             _mainTextBox.SelectedText = replaceTerm;
@@ -555,7 +555,7 @@ public partial class MainWindow : Form
 
     private void ExecuteReplaceAll(string term, string replaceTerm, bool matchCase, bool matchWholeWord)
     {
-        string result = _searchService.ReplaceAll(_mainTextBox.Text, term, replaceTerm, matchCase, matchWholeWord);
+        var result = _searchService.ReplaceAll(_mainTextBox.Text, term, replaceTerm, matchCase, matchWholeWord);
         if (_mainTextBox.Text != result)
         {
             _mainTextBox.Text = result;
@@ -577,14 +577,14 @@ public partial class MainWindow : Form
 
     private void ShowGoToLine()
     {
-        int currentIndex = _mainTextBox.SelectionStart + _mainTextBox.SelectionLength;
-        int currentLine = _mainTextBox.GetLineFromCharIndex(currentIndex) + 1;
-        int maxLine = _mainTextBox.GetLineFromCharIndex(_mainTextBox.Text.Length) + 1;
+        var currentIndex = _mainTextBox.SelectionStart + _mainTextBox.SelectionLength;
+        var currentLine = _mainTextBox.GetLineFromCharIndex(currentIndex) + 1;
+        var maxLine = _mainTextBox.GetLineFromCharIndex(_mainTextBox.Text.Length) + 1;
 
         using var dialog = new GoToLineDialog(_themeManager, currentLine, maxLine);
         if (dialog.ShowDialog(this) == DialogResult.OK)
         {
-            int charIndex = _mainTextBox.GetFirstCharIndexFromLine(dialog.LineNumber - 1);
+            var charIndex = _mainTextBox.GetFirstCharIndexFromLine(dialog.LineNumber - 1);
             if (charIndex >= 0)
             {
                 _mainTextBox.SelectionStart = charIndex;
@@ -606,11 +606,11 @@ public partial class MainWindow : Form
 
     private void UpdateUIState()
     {
-        string zoom = _zoomPercent != 100 ? $" ({_zoomPercent}%)" : "";
+        var zoom = _zoomPercent != 100 ? $" ({_zoomPercent}%)" : "";
         Text = $"{(_isModified ? "*" : "")}{_fileService.GetFileName()} - YotePad{zoom}";
-        int index = _mainTextBox.SelectionStart + _mainTextBox.SelectionLength;
-        int line = _mainTextBox.GetLineFromCharIndex(index);
-        int column = index - _mainTextBox.GetFirstCharIndexFromLine(line);
+        var index = _mainTextBox.SelectionStart + _mainTextBox.SelectionLength;
+        var line = _mainTextBox.GetLineFromCharIndex(index);
+        var column = index - _mainTextBox.GetFirstCharIndexFromLine(line);
         _lblLocation.Text = $"Ln {line + 1}, Col {column + 1}";
 
         // Update Line Ending UI
@@ -673,11 +673,11 @@ public partial class MainWindow : Form
 
     private void ApplyZoom()
     {
-        float newSize = _baseFontSize * (_zoomPercent / 100f);
+        var newSize = _baseFontSize * (_zoomPercent / 100f);
         if (newSize < 1f) newSize = 1f;
 
         // Grab a reference to the old font so we can destroy it safely
-        Font oldFont = _mainTextBox.Font;
+        var oldFont = _mainTextBox.Font;
 
         // Assign the new font
         _mainTextBox.Font = new Font(oldFont.FontFamily, newSize, oldFont.Style);
