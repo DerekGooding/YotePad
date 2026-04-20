@@ -1,8 +1,4 @@
 // RecoveryDialog.cs
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using Yotepad.Dialogs;
 using Yotepad.Services;
 

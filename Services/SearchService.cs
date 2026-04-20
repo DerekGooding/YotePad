@@ -1,5 +1,3 @@
-using System;
-
 namespace Yotepad.Services
 {
     public class SearchService

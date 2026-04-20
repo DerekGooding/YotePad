@@ -1,9 +1,3 @@
-using System;
-using System.Drawing;
-using System.IO;
-using System.Threading; // Required for Mutex
-using System.Windows.Forms;
-
 namespace Yotepad
 {
     internal static class Program
