@@ -1,6 +1,4 @@
 // RecoveryDialog.cs
-using YotePad.Helpers;
-
 namespace YotePad.Views;
 
 public class RecoveryDialog : Form

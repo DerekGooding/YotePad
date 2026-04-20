@@ -1,9 +1,12 @@
-using YotePad;
+using YotePad.Generated;
 
 namespace YotePad;
 
 internal static class Program
 {
+    private readonly static Host _host = Host.Initialize();
+    public static T Get<T>() where T : class => _host.Get<T>();
+
     [STAThread]
     private static void Main(string[] args)
     {

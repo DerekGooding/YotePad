@@ -1,10 +1,7 @@
-using YotePad.Helpers;
-
 namespace YotePad;
 
 public partial class MainWindow : Form
 {
-    private readonly SearchService _searchService = new();
     private FindReplaceDialog? _searchDialog;
     private readonly YoteTextBox _mainTextBox = new();
     private readonly MenuStrip _topMenu = new();
@@ -15,10 +12,11 @@ public partial class MainWindow : Form
     private readonly ToolStripMenuItem _statusBarMenuItem = new("Status Bar");
     private readonly ToolStripMenuItem _goToLineMenuItem = new("Go To Line...");
 
-    private readonly FileService _fileService = new();
+    private readonly FileService _fileService = Program.Get<FileService>();
     private readonly RecoveryService _recoveryService = new();
-    private readonly ThemeManager _themeManager = new();
-    private readonly PrintService _printService = new();
+    private readonly ThemeManager _themeManager = Program.Get<ThemeManager>();
+    private readonly PrintService _printService = Program.Get<PrintService>();
+    private readonly SearchService _searchService = Program.Get<SearchService>();
 
     private bool _isModified = false;
     private IntPtr _iconHandle = IntPtr.Zero;

@@ -1,5 +1,3 @@
-using YotePad.Helpers;
-
 namespace YotePad.Model;
 
 public class YoteTextBox : TextBox

@@ -2,6 +2,7 @@ using Microsoft.Win32;
 
 namespace YotePad.Helpers;
 
+[Singleton]
 public class ThemeManager
 {
     public bool IsDarkMode { get; private set; }
