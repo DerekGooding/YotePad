@@ -6,21 +6,21 @@ namespace Yotepad;
 
 public partial class MainWindow : Form
 {
-    private readonly SearchService _searchService = new SearchService();
+    private readonly SearchService _searchService = new();
     private FindReplaceDialog? _searchDialog;
-    private readonly YoteTextBox _mainTextBox = new YoteTextBox();
-    private readonly MenuStrip _topMenu = new MenuStrip();
-    private readonly StatusStrip _statusBar = new StatusStrip();
-    private readonly ToolStripStatusLabel _lblLocation = new ToolStripStatusLabel();
+    private readonly YoteTextBox _mainTextBox = new();
+    private readonly MenuStrip _topMenu = new();
+    private readonly StatusStrip _statusBar = new();
+    private readonly ToolStripStatusLabel _lblLocation = new();
     
-    private readonly ToolStripMenuItem _wordWrapMenuItem = new ToolStripMenuItem("Word Wrap");
-    private readonly ToolStripMenuItem _statusBarMenuItem = new ToolStripMenuItem("Status Bar");
-    private ToolStripMenuItem _goToLineMenuItem = new ToolStripMenuItem("Go To Line...");
+    private readonly ToolStripMenuItem _wordWrapMenuItem = new("Word Wrap");
+    private readonly ToolStripMenuItem _statusBarMenuItem = new("Status Bar");
+    private ToolStripMenuItem _goToLineMenuItem = new("Go To Line...");
     
-    private readonly FileService _fileService = new FileService();
-    private readonly RecoveryService _recoveryService = new RecoveryService();
-    private readonly ThemeManager _themeManager = new ThemeManager();
-    private readonly PrintService _printService = new PrintService();
+    private readonly FileService _fileService = new();
+    private readonly RecoveryService _recoveryService = new();
+    private readonly ThemeManager _themeManager = new();
+    private readonly PrintService _printService = new();
     
     private bool _isModified = false;
     private IntPtr _iconHandle = IntPtr.Zero;
@@ -45,12 +45,12 @@ public partial class MainWindow : Form
     // Zoom state
     private int _zoomPercent = 100;
     private readonly float _baseFontSize = 11F;
-    private ToolStripStatusLabel _lblZoom = new ToolStripStatusLabel("100%");
-    private readonly ToolStripDropDownButton _btnEncoding = new ToolStripDropDownButton();
-    private readonly ToolStripDropDownButton _btnLineEnding = new ToolStripDropDownButton();
+    private ToolStripStatusLabel _lblZoom = new("100%");
+    private readonly ToolStripDropDownButton _btnEncoding = new();
+    private readonly ToolStripDropDownButton _btnLineEnding = new();
     
     // Recovery timer — resets every time the user types
-    private readonly System.Windows.Forms.Timer _recoveryTimer = new System.Windows.Forms.Timer();
+    private readonly System.Windows.Forms.Timer _recoveryTimer = new();
     private string _lastRecoveryContent = string.Empty;
 
     public MainWindow(string filePath = "", Point? startPosition = null, bool skipRecovery = false)

@@ -4,7 +4,7 @@ namespace Yotepad.Services;
 
 public class PrintService
 {
-    private readonly PrintDocument _printDocument = new PrintDocument();
+    private readonly PrintDocument _printDocument = new();
     private string _textToPrint = string.Empty;
     private Font? _printFont;
     private int _currentCharIndex = 0;

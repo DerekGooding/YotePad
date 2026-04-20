@@ -2,10 +2,10 @@ namespace Yotepad.Dialogs;
 
 public class GoToLineDialog : Form
 {
-    private readonly TextBox _txtLineNumber = new TextBox();
-    private readonly Button _btnGoTo = new Button();
-    private readonly Button _btnCancel = new Button();
-    private readonly Label _lblPrompt = new Label();
+    private readonly TextBox _txtLineNumber = new();
+    private readonly Button _btnGoTo = new();
+    private readonly Button _btnCancel = new();
+    private readonly Label _lblPrompt = new();
 
     public int LineNumber { get; private set; } = -1;
 

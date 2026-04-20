@@ -8,10 +8,10 @@ public class RecoveryDialog : Form
 {
     private readonly RecoveryFile[] _files;
     private readonly ThemeManager _themeManager;
-    private readonly List<RecoveryRowControl> _rows = new List<RecoveryRowControl>();
-    private readonly Panel _rowPanel = new Panel();
-    private readonly Button _btnRestoreSelected = new Button();
-    private readonly Button _btnDiscardAll = new Button();
+    private readonly List<RecoveryRowControl> _rows = new();
+    private readonly Panel _rowPanel = new();
+    private readonly Button _btnRestoreSelected = new();
+    private readonly Button _btnDiscardAll = new();
 
     // Returns the files the user chose to restore
     public List<RecoveryFile> FilesToRestore { get; private set; } = new List<RecoveryFile>();
@@ -204,9 +204,9 @@ public class RecoveryRowControl : Panel
 
     public event Action<RecoveryFile>? OnPreview;
     
-    private readonly CheckBox _chk = new CheckBox();
-    private readonly Label _lblName = new Label();
-    private readonly Button _btnPreview = new Button();
+    private readonly CheckBox _chk = new();
+    private readonly Label _lblName = new();
+    private readonly Button _btnPreview = new();
     private readonly ThemeManager _themeManager;
 
     public RecoveryRowControl(RecoveryFile file, ThemeManager themeManager)
