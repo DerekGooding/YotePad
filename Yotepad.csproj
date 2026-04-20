@@ -7,7 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <SelfContained>false</SelfContained>
-    <ApplicationIcon>yotepad.ico</ApplicationIcon>
+    <ApplicationIcon>Assets/YotePad.ico</ApplicationIcon>
     <Company>Yann Perodin</Company>
     <Product>YotePad</Product>
     <Description>A real notepad, not whatever Windows 11 did.</Description>

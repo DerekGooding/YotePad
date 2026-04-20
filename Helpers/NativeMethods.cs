@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace Yotepad.Helpers;
+namespace YotePad.Helpers;
 
 internal static class NativeMethods
 {

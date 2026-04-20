@@ -1,6 +1,6 @@
-using Yotepad.Helpers;
+using YotePad.Helpers;
 
-namespace Yotepad.Views;
+namespace YotePad.Views;
 
 public class FindReplaceDialog : Form
 {

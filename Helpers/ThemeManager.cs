@@ -1,6 +1,6 @@
 using Microsoft.Win32;
 
-namespace Yotepad.Helpers;
+namespace YotePad.Helpers;
 
 public class ThemeManager
 {

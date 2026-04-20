@@ -1,4 +1,4 @@
-namespace Yotepad.Helpers;
+namespace YotePad.Helpers;
 
 public static class RecoveryLauncher
 {

@@ -1,6 +1,6 @@
 using System.Drawing.Printing;
 
-namespace Yotepad.Services;
+namespace YotePad.Services;
 
 [Singleton]
 public class PrintService

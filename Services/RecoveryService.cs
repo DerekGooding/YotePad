@@ -1,4 +1,4 @@
-namespace Yotepad.Services;
+namespace YotePad.Services;
 
 public class RecoveryService : IDisposable
 {

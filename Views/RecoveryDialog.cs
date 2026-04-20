@@ -1,7 +1,7 @@
 // RecoveryDialog.cs
-using Yotepad.Helpers;
+using YotePad.Helpers;
 
-namespace Yotepad.Views;
+namespace YotePad.Views;
 
 public class RecoveryDialog : Form
 {

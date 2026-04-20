@@ -1,6 +1,6 @@
-using Yotepad.Helpers;
+using YotePad.Helpers;
 
-namespace Yotepad;
+namespace YotePad;
 
 public partial class MainWindow : Form
 {

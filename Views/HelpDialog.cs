@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace Yotepad.Views;
+namespace YotePad.Views;
 
 public class HelpDialog : Form
 {

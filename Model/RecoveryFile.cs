@@ -1,4 +1,4 @@
-namespace Yotepad.Model;
+namespace YotePad.Model;
 
 public class RecoveryFile
 {

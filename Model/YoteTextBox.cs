@@ -1,6 +1,6 @@
-using Yotepad.Helpers;
+using YotePad.Helpers;
 
-namespace Yotepad.Model;
+namespace YotePad.Model;
 
 public class YoteTextBox : TextBox
 {

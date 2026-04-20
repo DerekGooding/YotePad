@@ -1,4 +1,4 @@
-namespace Yotepad.Helpers;
+namespace YotePad.Helpers;
 
 public class YotePadMenuRenderer(ThemeManager theme) : ToolStripProfessionalRenderer()
 {

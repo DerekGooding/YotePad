@@ -1,6 +1,6 @@
 global using SimpleInjection.Injection;
 global using System.Text;
-global using Yotepad.Model;
-global using Yotepad.Services;
-global using Yotepad.Views;
-global using Yotepad.Helpers;
+global using YotePad.Model;
+global using YotePad.Services;
+global using YotePad.Views;
+global using YotePad.Helpers;

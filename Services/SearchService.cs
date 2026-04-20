@@ -1,4 +1,4 @@
-namespace Yotepad.Services;
+namespace YotePad.Services;
 
 [Singleton]
 public class SearchService

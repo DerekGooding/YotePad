@@ -1,4 +1,4 @@
-﻿namespace Yotepad
+﻿namespace YotePad
 {
     partial class MainWindow
     {

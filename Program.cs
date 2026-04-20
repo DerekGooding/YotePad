@@ -1,4 +1,6 @@
-namespace Yotepad;
+using YotePad;
+
+namespace YotePad;
 
 internal static class Program
 {

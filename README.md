@@ -1,4 +1,4 @@
-<img width="250" height="250" alt="Yotepad" src="https://github.com/user-attachments/assets/e81ee53b-9d87-4e3e-8679-8aac38b89a81" />
+<img width="250" height="250" alt="YotePad" src="https://github.com/user-attachments/assets/e81ee53b-9d87-4e3e-8679-8aac38b89a81" />
 
 
 # YotePad v1.0.0 - No Nonsense Notepad
