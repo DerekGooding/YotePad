@@ -17,4 +17,8 @@
     <RollForward>Major</RollForward>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="SimpleInjection" Version="0.9.8.4" />
+  </ItemGroup>
+
 </Project>

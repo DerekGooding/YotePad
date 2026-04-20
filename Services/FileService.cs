@@ -1,14 +1,6 @@
-using System.Text;
-
 namespace Yotepad.Services;
 
-public enum LineEndingType
-{
-    CRLF,
-    LF,
-    CR
-}
-
+[Singleton]
 public class FileService
 {
     public string CurrentFilePath { get; private set; } = string.Empty;
