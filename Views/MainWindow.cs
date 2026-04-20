@@ -16,7 +16,8 @@ public partial class MainWindow : Form
     private readonly RecoveryService _recoveryService = new();
     private readonly ThemeManager _themeManager = Program.Get<ThemeManager>();
     private readonly PrintService _printService = Program.Get<PrintService>();
-    private readonly SearchService _searchService = Program.Get<SearchService>();
+
+    private SearchState _lastSearchState = new(string.Empty, false, false, true);
 
     private bool _isModified = false;
     private IntPtr _iconHandle = IntPtr.Zero;
@@ -510,7 +511,7 @@ public partial class MainWindow : Form
 
         if (!_searchDialog.Visible)
         {
-            var x = Location.X + (Width - _searchDialog.Width) / 2;
+            var x = Location.X + ((Width - _searchDialog.Width) / 2);
             var y = Location.Y + (int)(Height * 0.20);
             _searchDialog.Location = new Point(x, y);
             _searchDialog.Show(this);
@@ -523,11 +524,11 @@ public partial class MainWindow : Form
 
     private void ExecuteFind(string term, bool matchCase, bool matchWholeWord, bool searchDown)
     {
-        _searchService.UpdateSearchState(term, matchCase, matchWholeWord, searchDown);
+        _lastSearchState = new SearchState(term, matchCase, matchWholeWord, searchDown);
         var startIndex = _mainTextBox.SelectionStart;
         if (searchDown) startIndex += _mainTextBox.SelectionLength;
 
-        var foundIndex = _searchService.Find(_mainTextBox.Text, term, startIndex, matchCase, matchWholeWord, searchDown);
+        var foundIndex = SearchHelper.Find(_mainTextBox.Text, term, startIndex, matchCase, matchWholeWord, searchDown);
 
         if (foundIndex != -1)
         {
@@ -552,7 +553,7 @@ public partial class MainWindow : Form
 
     private void ExecuteReplaceAll(string term, string replaceTerm, bool matchCase, bool matchWholeWord)
     {
-        var result = _searchService.ReplaceAll(_mainTextBox.Text, term, replaceTerm, matchCase, matchWholeWord);
+        var result = SearchHelper.ReplaceAll(_mainTextBox.Text, term, replaceTerm, matchCase, matchWholeWord);
         if (_mainTextBox.Text != result)
         {
             _mainTextBox.Text = result;
@@ -562,14 +563,14 @@ public partial class MainWindow : Form
 
     private void FindNextShortcut()
     {
-        if (string.IsNullOrEmpty(_searchService.LastSearchTerm)) ShowSearchDialog(false);
-        else ExecuteFind(_searchService.LastSearchTerm, _searchService.LastMatchCase, _searchService.LastMatchWholeWord, _searchService.LastSearchDown);
+        if (string.IsNullOrEmpty(_lastSearchState.SearchTerm)) ShowSearchDialog(false);
+        else ExecuteFind(_lastSearchState.SearchTerm, _lastSearchState.MatchCase, _lastSearchState.MatchWholeWord, _lastSearchState.SearchDown);
     }
 
     private void FindPreviousShortcut()
     {
-        if (string.IsNullOrEmpty(_searchService.LastSearchTerm)) ShowSearchDialog(false);
-        else ExecuteFind(_searchService.LastSearchTerm, _searchService.LastMatchCase, _searchService.LastMatchWholeWord, false);
+        if (string.IsNullOrEmpty(_lastSearchState.SearchTerm)) ShowSearchDialog(false);
+        else ExecuteFind(_lastSearchState.SearchTerm, _lastSearchState.MatchCase, _lastSearchState.MatchWholeWord, false);
     }
 
     private void ShowGoToLine()
@@ -593,11 +594,11 @@ public partial class MainWindow : Form
         }
     }
 
-    private string GetEncodingDisplayName(System.Text.Encoding enc)
+    private static string GetEncodingDisplayName(Encoding enc)
     {
-        if (enc is System.Text.UTF8Encoding utf8) return utf8.GetPreamble().Length > 0 ? "UTF-8 with BOM" : "UTF-8";
-        if (enc.CodePage == System.Text.Encoding.Unicode.CodePage) return "UTF-16 LE";
-        if (enc.CodePage == System.Text.Encoding.BigEndianUnicode.CodePage) return "UTF-16 BE";
+        if (enc is UTF8Encoding utf8) return utf8.GetPreamble().Length > 0 ? "UTF-8 with BOM" : "UTF-8";
+        if (enc.CodePage == Encoding.Unicode.CodePage) return "UTF-16 LE";
+        if (enc.CodePage == Encoding.BigEndianUnicode.CodePage) return "UTF-16 BE";
         return enc.CodePage == 1252 ? "ANSI" : enc.EncodingName;
     }
 

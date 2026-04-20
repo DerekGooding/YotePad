@@ -50,7 +50,7 @@ public class HelpDialog : Form
         }
     }
 
-    private string GetHelpText() => "Welcome to YotePad\r\n\r\n" +
+    private static string GetHelpText() => "Welcome to YotePad\r\n\r\n" +
             "YotePad is a lightweight, responsive text editor built for Windows. While the initial cold launch may take a moment to initialize the .NET environment, subsequent launches are optimized for speed and reliability, providing a high-performance replacement for the modern Windows 11 Notepad.\r\n\r\n" +
             "The Anti-Bloat Philosophy\r\n\r\n" +
             "YotePad was built specifically to strip away the distractions of the modern Windows 11 editor. There is no AI-driven text generation, no tabbed-interface clutter, no telemetry, and no OneDrive integration. It is a clean, single-instance-first tool designed to do one thing: handle text without the 'crap.'\r\n\r\n" +

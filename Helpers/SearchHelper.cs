@@ -1,22 +1,8 @@
 namespace YotePad.Services;
 
-[Singleton]
-public class SearchService
+public static class SearchHelper
 {
-    public string LastSearchTerm { get; private set; } = string.Empty;
-    public bool LastMatchCase { get; private set; } = false;
-    public bool LastMatchWholeWord { get; private set; } = false;
-    public bool LastSearchDown { get; private set; } = true;
-
-    public void UpdateSearchState(string term, bool matchCase, bool matchWholeWord, bool searchDown)
-    {
-        LastSearchTerm = term;
-        LastMatchCase = matchCase;
-        LastMatchWholeWord = matchWholeWord;
-        LastSearchDown = searchDown;
-    }
-
-    public int Find(string fullText, string searchTerm, int startIndex, bool matchCase, bool matchWholeWord, bool searchDown)
+    public static int Find(string fullText, string searchTerm, int startIndex, bool matchCase, bool matchWholeWord, bool searchDown)
     {
         if (string.IsNullOrEmpty(fullText) || string.IsNullOrEmpty(searchTerm)) return -1;
 
@@ -48,7 +34,7 @@ public class SearchService
         }
     }
 
-    private int FindNext(string fullText, string searchTerm, int fromIndex, StringComparison comparison, bool matchWholeWord)
+    private static int FindNext(string fullText, string searchTerm, int fromIndex, StringComparison comparison, bool matchWholeWord)
     {
         var pos = fromIndex;
         while (pos <= fullText.Length - searchTerm.Length)
@@ -62,7 +48,7 @@ public class SearchService
         return -1;
     }
 
-    private int FindPrevious(string fullText, string searchTerm, int fromIndex, StringComparison comparison, bool matchWholeWord)
+    private static int FindPrevious(string fullText, string searchTerm, int fromIndex, StringComparison comparison, bool matchWholeWord)
     {
         var pos = fromIndex;
         while (pos >= 0)
@@ -76,7 +62,7 @@ public class SearchService
         return -1;
     }
 
-    private bool IsWholeWordMatch(string fullText, int index, int length)
+    private static bool IsWholeWordMatch(string fullText, int index, int length)
     {
         // Check character before — must be start of text or non-word character
         if (index > 0 && IsWordChar(fullText[index - 1]))
@@ -87,9 +73,9 @@ public class SearchService
         return after >= fullText.Length || !IsWordChar(fullText[after]);
     }
 
-    private bool IsWordChar(char c) => char.IsLetterOrDigit(c) || c == '_';
+    private static bool IsWordChar(char c) => char.IsLetterOrDigit(c) || c == '_';
 
-    public string ReplaceAll(string fullText, string searchTerm, string replaceTerm, bool matchCase, bool matchWholeWord)
+    public static string ReplaceAll(string fullText, string searchTerm, string replaceTerm, bool matchCase, bool matchWholeWord)
     {
         if (string.IsNullOrEmpty(fullText) || string.IsNullOrEmpty(searchTerm)) return fullText;
 
