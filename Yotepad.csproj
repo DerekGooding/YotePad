@@ -15,6 +15,7 @@
     <Version>1.0.0</Version>
     <FileVersion>1.0.0</FileVersion>
     <RollForward>Major</RollForward>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
