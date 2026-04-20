@@ -3,7 +3,7 @@ namespace Yotepad;
 public class YoteTextBox : TextBox
 {
     private const int WM_PASTE = 0x0302;
-    
+
     public bool IsOverwriteMode { get; private set; } = false;
 
     protected override void WndProc(ref Message m)
@@ -31,13 +31,13 @@ public class YoteTextBox : TextBox
 
     protected override void OnKeyPress(KeyPressEventArgs e)
     {
-        if (IsOverwriteMode && 
-            SelectionLength == 0 && 
-            SelectionStart < TextLength && 
+        if (IsOverwriteMode &&
+            SelectionLength == 0 &&
+            SelectionStart < TextLength &&
             !char.IsControl(e.KeyChar))
         {
             char nextChar = Text[SelectionStart];
-            
+
             if (nextChar != '\r' && nextChar != '\n')
             {
                 SelectionLength = 1;
@@ -46,7 +46,7 @@ public class YoteTextBox : TextBox
         base.OnKeyPress(e);
     }
 
-    // The OS constantly tries to reset the caret to a line. 
+    // The OS constantly tries to reset the caret to a line.
     // We must reassert our block caret after these events.
     protected override void OnKeyUp(KeyEventArgs e)
     {
@@ -73,7 +73,7 @@ public class YoteTextBox : TextBox
             // Measure roughly how wide a character is in the current font
             int width = TextRenderer.MeasureText("W", Font).Width / 2;
             int height = Font.Height;
-            
+
             // Passing IntPtr.Zero creates a solid black/white inverted block
             NativeMethods.CreateCaret(Handle, IntPtr.Zero, width, height);
             NativeMethods.ShowCaret(Handle);

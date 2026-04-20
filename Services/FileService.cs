@@ -12,9 +12,9 @@ public enum LineEndingType
 public class FileService
 {
     public string CurrentFilePath { get; private set; } = string.Empty;
-    public Encoding CurrentEncoding { get; set; } = new UTF8Encoding(false); 
+    public Encoding CurrentEncoding { get; set; } = new UTF8Encoding(false);
     public LineEndingType CurrentLineEnding { get; set; } = LineEndingType.CRLF;
-    
+
     private const string FileFilter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
 
     public FileService()
@@ -27,7 +27,7 @@ public class FileService
     public string NewFile()
     {
         CurrentFilePath = string.Empty;
-        CurrentEncoding = new UTF8Encoding(false); 
+        CurrentEncoding = new UTF8Encoding(false);
         CurrentLineEnding = LineEndingType.CRLF;
         return string.Empty;
     }
@@ -94,8 +94,8 @@ public class FileService
         return false;
     }
 
-    public string GetFileName() => string.IsNullOrEmpty(CurrentFilePath) 
-        ? "Untitled" 
+    public string GetFileName() => string.IsNullOrEmpty(CurrentFilePath)
+        ? "Untitled"
         : Path.GetFileName(CurrentFilePath);
 
     public string ProcessIncomingText(string input)
@@ -110,7 +110,7 @@ public class FileService
 
         // Normalize everything to standard Windows format for the text box UI
         string normalized = input.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
-        
+
         if (normalized.StartsWith(".LOG"))
         {
             string timestamp = Environment.NewLine + DateTime.Now.ToString("h:mm tt M/d/yyyy");
@@ -137,18 +137,18 @@ public class FileService
     {
         if (bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
             return new UTF8Encoding(true);
-            
+
         if (bytes.Length >= 2 && bytes[0] == 0xFF && bytes[1] == 0xFE)
-            return Encoding.Unicode; 
-            
+            return Encoding.Unicode;
+
         if (bytes.Length >= 2 && bytes[0] == 0xFE && bytes[1] == 0xFF)
-            return Encoding.BigEndianUnicode; 
+            return Encoding.BigEndianUnicode;
 
         try
         {
-            var strictUtf8 = new UTF8Encoding(false, true); 
+            var strictUtf8 = new UTF8Encoding(false, true);
             strictUtf8.GetString(bytes);
-            return new UTF8Encoding(false); 
+            return new UTF8Encoding(false);
         }
         catch (ArgumentException)
         {

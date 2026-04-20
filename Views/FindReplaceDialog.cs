@@ -18,7 +18,9 @@ public class FindReplaceDialog : Form
     private const int EXPANDED_HEIGHT = 190;
 
     public event Action<string, bool, bool>? OnFindNext;
+
     public event Action<string, string, bool, bool>? OnReplace;
+
     public event Action<string, string, bool, bool>? OnReplaceAll;
 
     public FindReplaceDialog(ThemeManager themeManager)
@@ -48,15 +50,15 @@ public class FindReplaceDialog : Form
         Label lblFind = new Label { Text = "Find what:", Location = new Point(40, 15), AutoSize = true };
         _txtFind.Location = new Point(115, 12);
         _txtFind.Size = new Size(160, 23);
-        
+
         _lblReplace.Text = "Replace with:";
         _lblReplace.Location = new Point(35, 45);
         _lblReplace.AutoSize = true;
-        
+
         _txtReplace.Location = new Point(115, 42);
         _txtReplace.Size = new Size(160, 23);
 
-        _txtFind.TextChanged += (s, e) => 
+        _txtFind.TextChanged += (s, e) =>
         {
             bool hasText = _txtFind.Text.Length > 0;
             _btnFindNext.Enabled = hasText;
@@ -121,7 +123,7 @@ public class FindReplaceDialog : Form
         AcceptButton = _btnFindNext;
         CancelButton = _btnCancel;
 
-        FormClosing += (s, e) => 
+        FormClosing += (s, e) =>
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
@@ -131,12 +133,12 @@ public class FindReplaceDialog : Form
         };
     }
 
-   public void SetMode(bool expand)
+    public void SetMode(bool expand)
     {
         _isExpanded = expand;
         _btnToggleReplace.Text = _isExpanded ? "△" : "▽";
         Text = _isExpanded ? "Find and Replace" : "Find";
-        
+
         _lblReplace.Visible = _isExpanded;
         _txtReplace.Visible = _isExpanded;
         _btnReplace.Visible = _isExpanded;
@@ -146,27 +148,27 @@ public class FindReplaceDialog : Form
         {
             ClientSize = new Size(380, EXPANDED_HEIGHT);
             _btnCancel.Location = new Point(285, 100);
-            
+
             // Stacked neatly on the left side
             _chkMatchCase.Location = new Point(115, 75);
-            _chkMatchWholeWord.Location = new Point(115, 100); 
+            _chkMatchWholeWord.Location = new Point(115, 100);
         }
         else
         {
             ClientSize = new Size(380, COLLAPSED_HEIGHT);
             _btnCancel.Location = new Point(285, 40);
-            
+
             // Stacked neatly on the left side
             _chkMatchCase.Location = new Point(115, 45);
-            _chkMatchWholeWord.Location = new Point(115, 70); 
+            _chkMatchWholeWord.Location = new Point(115, 70);
         }
     }
 
-   public void ApplyTheme(ThemeManager theme)
+    public void ApplyTheme(ThemeManager theme)
     {
         BackColor = theme.BackgroundColor;
         ForeColor = theme.TextColor;
-        
+
         _txtFind.BackColor = theme.BackgroundColor;
         _txtFind.ForeColor = theme.TextColor;
         _txtFind.BorderStyle = BorderStyle.FixedSingle;
@@ -192,7 +194,7 @@ public class FindReplaceDialog : Form
 
         // Treat the toggle button like a borderless icon
         _btnToggleReplace.FlatStyle = FlatStyle.Flat;
-        _btnToggleReplace.FlatAppearance.BorderSize = 0; 
+        _btnToggleReplace.FlatAppearance.BorderSize = 0;
         _btnToggleReplace.BackColor = theme.BackgroundColor;
         _btnToggleReplace.ForeColor = theme.TextColor;
     }

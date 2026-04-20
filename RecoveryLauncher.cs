@@ -42,10 +42,10 @@ public static class RecoveryLauncher
             // so we pass the raw target minus 24 to land exactly where we want
             string adjustedPos = $"{spawnPos.X - 24},{spawnPos.Y - 24}";
 
-           Process.Start(
-            Application.ExecutablePath,
-            $"--restore \"{tempPath}\" --original \"{file.OriginalFilePath}\" --pos {adjustedPos} --no-recovery"
-        );
+            Process.Start(
+             Application.ExecutablePath,
+             $"--restore \"{tempPath}\" --original \"{file.OriginalFilePath}\" --pos {adjustedPos} --no-recovery"
+         );
         }
         catch { }
     }

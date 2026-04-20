@@ -13,7 +13,7 @@ public class PrintService
     {
         // Set some standard default margins (in hundredths of an inch)
         _printDocument.DefaultPageSettings.Margins = new Margins(100, 100, 100, 100);
-        
+
         _printDocument.BeginPrint += PrintDocument_BeginPrint;
         _printDocument.PrintPage += PrintDocument_PrintPage;
     }
@@ -61,28 +61,28 @@ public class PrintService
 
         // Define the area where we are allowed to print based on the page setup margins
         RectangleF printArea = new RectangleF(
-            e.MarginBounds.Left, 
-            e.MarginBounds.Top, 
-            e.MarginBounds.Width, 
+            e.MarginBounds.Left,
+            e.MarginBounds.Top,
+            e.MarginBounds.Width,
             e.MarginBounds.Height);
 
         string textRemaining = _textToPrint.Substring(_currentCharIndex);
 
         // Ask the Graphics object to measure how many characters will fit in the print box
         e.Graphics.MeasureString(
-            textRemaining, 
-            _printFont, 
-            printArea.Size, 
-            StringFormat.GenericTypographic, 
-            out int charactersFitted, 
+            textRemaining,
+            _printFont,
+            printArea.Size,
+            StringFormat.GenericTypographic,
+            out int charactersFitted,
             out int linesFilled);
 
         // Draw the text onto the paper
         e.Graphics.DrawString(
-            textRemaining, 
-            _printFont, 
-            Brushes.Black, 
-            printArea, 
+            textRemaining,
+            _printFont,
+            Brushes.Black,
+            printArea,
             StringFormat.GenericTypographic);
 
         // Move our index forward by the amount of characters we just printed

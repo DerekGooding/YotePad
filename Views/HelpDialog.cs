@@ -42,19 +42,19 @@ public class HelpDialog : Form
         txtHelp.BackColor = backColor;
         txtHelp.ForeColor = foreColor;
 
-        Shown += (s, e) => 
+        Shown += (s, e) =>
         {
             txtHelp.SelectionStart = 0;
             txtHelp.SelectionLength = 0;
         };
 
         // Hook into the Windows OS to force dark mode elements if the background is dark
-        if (backColor.R < 100) 
+        if (backColor.R < 100)
         {
             // Force the Window title bar to use dark mode (Windows 11)
             int useImmersiveDarkMode = 1;
             DwmSetWindowAttribute(Handle, 20, ref useImmersiveDarkMode, sizeof(int));
-            
+
             // Force the internal scrollbar to use the dark explorer theme
             SetWindowTheme(txtHelp.Handle, "DarkMode_Explorer", null);
         }
@@ -78,5 +78,3 @@ public class HelpDialog : Form
             "• Printing Support: Provides standard printing capabilities, including Page Setup and a dedicated internal Print Preview window for verifying your document layout before sending it to a physical or PDF printer.";
     }
 }
-
-

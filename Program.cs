@@ -3,7 +3,7 @@ namespace Yotepad;
 internal static class Program
 {
     [STAThread]
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
         // The "handshake" for the installer to find the running app
         using Mutex mutex = new Mutex(false, "YotePadMutex");

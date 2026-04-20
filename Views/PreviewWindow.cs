@@ -12,6 +12,7 @@ public class PreviewWindow : Form
     private readonly Button _btnDelete = new();
 
     public event Action<RecoveryFile>? OnRecover;
+
     public event Action<RecoveryFile>? OnDelete;
 
     public PreviewWindow(RecoveryFile file, ThemeManager themeManager, Point spawnLocation)

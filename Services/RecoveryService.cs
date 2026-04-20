@@ -51,10 +51,10 @@ public class RecoveryService : IDisposable
         {
             string header = $"YOTEPAD_RECOVERY|{originalPath}";
             string fullContent = header + "\n" + content;
-            
+
             // This is the magic line. It writes the file without blocking the UI.
             await File.WriteAllTextAsync(_recoveryFilePath, fullContent);
-            
+
             _hasWrittenRecovery = true;
         }
         catch { }

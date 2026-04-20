@@ -203,7 +203,7 @@ public class RecoveryRowControl : Panel
     public bool IsChecked => _chk.Checked;
 
     public event Action<RecoveryFile>? OnPreview;
-    
+
     private readonly CheckBox _chk = new();
     private readonly Label _lblName = new();
     private readonly Button _btnPreview = new();

@@ -23,8 +23,8 @@ public class SearchService
 
         if (searchDown)
         {
-            int index = startIndex < fullText.Length 
-                ? FindNext(fullText, searchTerm, startIndex, comparison, matchWholeWord) 
+            int index = startIndex < fullText.Length
+                ? FindNext(fullText, searchTerm, startIndex, comparison, matchWholeWord)
                 : -1;
 
             // Wrap to top
@@ -35,8 +35,8 @@ public class SearchService
         }
         else
         {
-            int index = startIndex > 0 
-                ? FindPrevious(fullText, searchTerm, startIndex - 1, comparison, matchWholeWord) 
+            int index = startIndex > 0
+                ? FindPrevious(fullText, searchTerm, startIndex - 1, comparison, matchWholeWord)
                 : -1;
 
             // Wrap to bottom

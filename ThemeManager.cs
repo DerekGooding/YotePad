@@ -72,73 +72,74 @@ public class ThemeManager
         }
     }
 }
+
 public class YotePadMenuRenderer : ToolStripProfessionalRenderer
 {
-private readonly ThemeManager _theme;
+    private readonly ThemeManager _theme;
 
-public YotePadMenuRenderer(ThemeManager theme) : base()
-{
-    _theme = theme;
-}
-
-protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
-{
-    if (!_theme.IsDarkMode)
+    public YotePadMenuRenderer(ThemeManager theme) : base()
     {
-        base.OnRenderMenuItemBackground(e);
-        return;
+        _theme = theme;
     }
 
-    Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
-
-    if (e.Item.Selected || e.Item.Pressed)
+    protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
     {
+        if (!_theme.IsDarkMode)
+        {
+            base.OnRenderMenuItemBackground(e);
+            return;
+        }
+
+        Rectangle rect = new Rectangle(Point.Empty, e.Item.Size);
+
+        if (e.Item.Selected || e.Item.Pressed)
+        {
             using SolidBrush brush = new SolidBrush(Color.FromArgb(80, 80, 80));
             e.Graphics.FillRectangle(brush, rect);
         }
-    else
-    {
+        else
+        {
             using SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor);
             e.Graphics.FillRectangle(brush, rect);
         }
-}
-
-protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
-{
-    if (!_theme.IsDarkMode)
-    {
-        base.OnRenderToolStripBackground(e);
-        return;
     }
+
+    protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
+    {
+        if (!_theme.IsDarkMode)
+        {
+            base.OnRenderToolStripBackground(e);
+            return;
+        }
 
         using SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor);
         e.Graphics.FillRectangle(brush, e.AffectedBounds);
     }
 
-protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
-{
-    if (!_theme.IsDarkMode)
+    protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
     {
-        base.OnRenderSeparator(e);
-        return;
-    }
+        if (!_theme.IsDarkMode)
+        {
+            base.OnRenderSeparator(e);
+            return;
+        }
 
-    int y = e.Item.Height / 2;
+        int y = e.Item.Height / 2;
         using Pen pen = new Pen(Color.FromArgb(70, 70, 70));
         e.Graphics.DrawLine(pen, 4, y, e.Item.Width - 4, y);
     }
 
-protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
-{
-    if (!_theme.IsDarkMode)
+    protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
     {
-        base.OnRenderItemText(e);
-        return;
-    }
+        if (!_theme.IsDarkMode)
+        {
+            base.OnRenderItemText(e);
+            return;
+        }
 
-    e.TextColor = e.Item.Enabled 
-        ? Color.FromArgb(220, 220, 220) 
-        : Color.FromArgb(110, 110, 110);
-    base.OnRenderItemText(e);
-}
+        e.TextColor = e.Item.Enabled
+            ? Color.FromArgb(220, 220, 220)
+            : Color.FromArgb(110, 110, 110);
+        base.OnRenderItemText(e);
+    }
 }

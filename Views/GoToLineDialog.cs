@@ -47,7 +47,7 @@ public class GoToLineDialog : Form
             }
             else
             {
-                MessageBox.Show($"Please enter a number between 1 and {maxLine}.", 
+                MessageBox.Show($"Please enter a number between 1 and {maxLine}.",
                     "YotePad", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         };
