@@ -8,13 +8,13 @@ public class RecoveryDialog : Form
 {
     private readonly RecoveryFile[] _files;
     private readonly ThemeManager _themeManager;
-    private readonly List<RecoveryRowControl> _rows = new();
+    private readonly List<RecoveryRowControl> _rows = [];
     private readonly Panel _rowPanel = new();
     private readonly Button _btnRestoreSelected = new();
     private readonly Button _btnDiscardAll = new();
 
     // Returns the files the user chose to restore
-    public List<RecoveryFile> FilesToRestore { get; private set; } = new List<RecoveryFile>();
+    public List<RecoveryFile> FilesToRestore { get; private set; } = [];
 
     public RecoveryDialog(RecoveryFile[] files, ThemeManager themeManager)
     {
@@ -173,8 +173,7 @@ public class RecoveryDialog : Form
         ForeColor = _themeManager.TextColor;
         _rowPanel.BackColor = _themeManager.MenuBackgroundColor;
 
-        Button[] buttons = { _btnRestoreSelected, _btnDiscardAll };
-        foreach (var btn in buttons)
+        foreach (var btn in (Button[])[_btnRestoreSelected, _btnDiscardAll])
         {
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderColor = Color.DimGray;

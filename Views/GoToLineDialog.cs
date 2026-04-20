@@ -78,8 +78,7 @@ public class GoToLineDialog : Form
         _lblPrompt.BackColor = theme.BackgroundColor;
         _lblPrompt.ForeColor = theme.TextColor;
 
-        Button[] buttons = { _btnGoTo, _btnCancel };
-        foreach (var btn in buttons)
+        foreach (var btn in (Button[])[_btnGoTo, _btnCancel])
         {
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderColor = Color.DimGray;

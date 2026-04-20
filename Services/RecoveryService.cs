@@ -88,7 +88,7 @@ public class RecoveryService : IDisposable
     {
         try
         {
-            if (!Directory.Exists(RecoveryFolder)) return Array.Empty<RecoveryFile>();
+            if (!Directory.Exists(RecoveryFolder)) return [];
 
             foreach (string orphan in Directory.GetFiles(RecoveryFolder, "*.ypr.restoring"))
             {
@@ -135,9 +135,9 @@ public class RecoveryService : IDisposable
                 catch { }
             }
 
-            return results.ToArray();
+            return [.. results];
         }
-        catch { return Array.Empty<RecoveryFile>(); }
+        catch { return []; }
     }
 
     public static void DeleteRecoveryFileAt(string path)

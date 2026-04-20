@@ -183,8 +183,7 @@ public class FindReplaceDialog : Form
         _chkMatchWholeWord.ForeColor = theme.TextColor;
 
         // Apply standard borders to the main action buttons
-        Button[] buttons = { _btnFindNext, _btnReplace, _btnReplaceAll, _btnCancel };
-        foreach (var btn in buttons)
+        foreach (var btn in (Button[])[ _btnFindNext, _btnReplace, _btnReplaceAll, _btnCancel ])
         {
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderColor = Color.DimGray;

@@ -427,7 +427,7 @@ public partial class MainWindow : Form
         helpMenu.DropDownItems.Add(new ToolStripMenuItem("About YotePad", null, (s, e) =>
             MessageBox.Show("YotePad\n\nBecause nobody likes Windows 11 Notepad\n\nNobody!\n\nCreated by Yann Perodin (2026)", "About", MessageBoxButtons.OK, MessageBoxIcon.Information)));
 
-        _topMenu.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, formatMenu, viewMenu, helpMenu });
+        _topMenu.Items.AddRange([fileMenu, editMenu, formatMenu, viewMenu, helpMenu]);
         Controls.Add(_topMenu);
     }
 
