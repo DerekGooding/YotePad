@@ -60,9 +60,7 @@ public class HelpDialog : Form
         }
     }
 
-    private string GetHelpText()
-    {
-        return "Welcome to YotePad\r\n\r\n" +
+    private string GetHelpText() => "Welcome to YotePad\r\n\r\n" +
             "YotePad is a lightweight, responsive text editor built for Windows. While the initial cold launch may take a moment to initialize the .NET environment, subsequent launches are optimized for speed and reliability, providing a high-performance replacement for the modern Windows 11 Notepad.\r\n\r\n" +
             "The Anti-Bloat Philosophy\r\n\r\n" +
             "YotePad was built specifically to strip away the distractions of the modern Windows 11 editor. There is no AI-driven text generation, no tabbed-interface clutter, no telemetry, and no OneDrive integration. It is a clean, single-instance-first tool designed to do one thing: handle text without the 'crap.'\r\n\r\n" +
@@ -76,5 +74,4 @@ public class HelpDialog : Form
             "• Visual Overwrite: Pressing the Insert key toggles between a standard thin caret and a chunky \"retro\" block cursor. This provides an immediate visual cue when you are in Overtype mode to prevent accidental text deletion.\r\n\r\n" +
             "• Filtered Search: The Find and Replace tool includes a \"Match Whole Word\" filter. This is essential for safely refactoring code or technical notes, ensuring that changing a short word doesn't accidentally mangle a longer string containing those same characters.\r\n\r\n" +
             "• Printing Support: Provides standard printing capabilities, including Page Setup and a dedicated internal Print Preview window for verifying your document layout before sending it to a physical or PDF printer.";
-    }
 }

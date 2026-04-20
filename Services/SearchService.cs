@@ -89,10 +89,7 @@ public class SearchService
         return true;
     }
 
-    private bool IsWordChar(char c)
-    {
-        return char.IsLetterOrDigit(c) || c == '_';
-    }
+    private bool IsWordChar(char c) => char.IsLetterOrDigit(c) || c == '_';
 
     public string ReplaceAll(string fullText, string searchTerm, string replaceTerm, bool matchCase, bool matchWholeWord)
     {

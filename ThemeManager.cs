@@ -77,10 +77,7 @@ public class YotePadMenuRenderer : ToolStripProfessionalRenderer
 {
     private readonly ThemeManager _theme;
 
-    public YotePadMenuRenderer(ThemeManager theme) : base()
-    {
-        _theme = theme;
-    }
+    public YotePadMenuRenderer(ThemeManager theme) : base() => _theme = theme;
 
     protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
     {

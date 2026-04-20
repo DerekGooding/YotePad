@@ -54,9 +54,6 @@ public static class RecoveryLauncher
     // in a static class without an explicit using, and we want one file self-contained
     private static class Process
     {
-        public static void Start(string fileName, string arguments)
-        {
-            System.Diagnostics.Process.Start(fileName, arguments);
-        }
+        public static void Start(string fileName, string arguments) => System.Diagnostics.Process.Start(fileName, arguments);
     }
 }

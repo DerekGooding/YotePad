@@ -323,20 +323,14 @@ public partial class MainWindow : Form
         fileMenu.DropDownItems.Add(encodingMenu); // <-- Tucked neatly into the File Menu!
         fileMenu.DropDownItems.Add(new ToolStripSeparator());
 
-        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Page Setup...", null, (s, e) =>
-        {
-            _printService.ShowPageSetup();
-        }));
+        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Page Setup...", null, (s, e)
+            => _printService.ShowPageSetup()));
 
-        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Print Preview...", null, (s, e) =>
-        {
-            _printService.ShowPrintPreview(_mainTextBox.Text, _mainTextBox.Font);
-        }));
+        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Print Preview...", null, (s, e)
+            => _printService.ShowPrintPreview(_mainTextBox.Text, _mainTextBox.Font)));
 
-        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Print...", null, (s, e) =>
-        {
-            _printService.Print(_mainTextBox.Text, _mainTextBox.Font);
-        })
+        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Print...", null, (s, e)
+            => _printService.Print(_mainTextBox.Text, _mainTextBox.Font))
         { ShortcutKeys = Keys.Control | Keys.P });
 
         fileMenu.DropDownItems.Add(new ToolStripSeparator());
@@ -348,11 +342,15 @@ public partial class MainWindow : Form
 
         // --- EDIT MENU ---
         var editMenu = new ToolStripMenuItem("Edit");
-        editMenu.DropDownItems.Add(new ToolStripMenuItem("Undo", null, (s, e) => _mainTextBox.Undo()) { ShortcutKeys = Keys.Control | Keys.Z });
+        editMenu.DropDownItems.Add(new ToolStripMenuItem("Undo", null, (s, e)
+            => _mainTextBox.Undo()) { ShortcutKeys = Keys.Control | Keys.Z });
         editMenu.DropDownItems.Add(new ToolStripSeparator());
-        editMenu.DropDownItems.Add(new ToolStripMenuItem("Cut", null, (s, e) => _mainTextBox.Cut()) { ShortcutKeys = Keys.Control | Keys.X });
-        editMenu.DropDownItems.Add(new ToolStripMenuItem("Copy", null, (s, e) => _mainTextBox.Copy()) { ShortcutKeys = Keys.Control | Keys.C });
-        editMenu.DropDownItems.Add(new ToolStripMenuItem("Paste", null, (s, e) => _mainTextBox.Paste()) { ShortcutKeys = Keys.Control | Keys.V });
+        editMenu.DropDownItems.Add(new ToolStripMenuItem("Cut", null, (s, e)
+            => _mainTextBox.Cut()) { ShortcutKeys = Keys.Control | Keys.X });
+        editMenu.DropDownItems.Add(new ToolStripMenuItem("Copy", null, (s, e)
+            => _mainTextBox.Copy()) { ShortcutKeys = Keys.Control | Keys.C });
+        editMenu.DropDownItems.Add(new ToolStripMenuItem("Paste", null, (s, e)
+            => _mainTextBox.Paste()) { ShortcutKeys = Keys.Control | Keys.V });
         editMenu.DropDownItems.Add(new ToolStripMenuItem("Delete", null, (s, e) =>
         {
             if (_mainTextBox.SelectionLength > 0)

@@ -48,12 +48,8 @@ public class PrintService
             }
         }
     }
-
-    private void PrintDocument_BeginPrint(object sender, PrintEventArgs e)
-    {
-        // Reset the character index every time a new print job starts
-        _currentCharIndex = 0;
-    }
+    // Reset the character index every time a new print job starts
+    private void PrintDocument_BeginPrint(object sender, PrintEventArgs e) => _currentCharIndex = 0;
 
     private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
     {

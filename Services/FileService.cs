@@ -17,10 +17,7 @@ public class FileService
 
     private const string FileFilter = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
 
-    public FileService()
-    {
-        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-    }
+    public FileService() => Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
     public void SetFilePath(string path) => CurrentFilePath = path;
 
