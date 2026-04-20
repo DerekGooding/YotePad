@@ -17,14 +17,14 @@ public class GoToLineDialog : Form
 
     private void InitializeComponent(int currentLine, int maxLine)
     {
-        this.Text = "Go To Line";
-        this.ClientSize = new Size(280, 110);
-        this.FormBorderStyle = FormBorderStyle.FixedDialog;
-        this.MaximizeBox = false;
-        this.MinimizeBox = false;
-        this.ShowIcon = false;
-        this.ShowInTaskbar = false;
-        this.StartPosition = FormStartPosition.CenterParent;
+        Text = "Go To Line";
+        ClientSize = new Size(280, 110);
+        FormBorderStyle = FormBorderStyle.FixedDialog;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        ShowIcon = false;
+        ShowInTaskbar = false;
+        StartPosition = FormStartPosition.CenterParent;
 
         _lblPrompt.Text = $"Line number (1 - {maxLine}):";
         _lblPrompt.Location = new Point(12, 15);
@@ -43,7 +43,7 @@ public class GoToLineDialog : Form
             if (int.TryParse(_txtLineNumber.Text, out int line) && line >= 1 && line <= maxLine)
             {
                 LineNumber = line;
-                this.DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
             }
             else
             {
@@ -55,21 +55,21 @@ public class GoToLineDialog : Form
         _btnCancel.Text = "Cancel";
         _btnCancel.Size = new Size(80, 28);
         _btnCancel.Location = new Point(189, 72);
-        _btnCancel.Click += (s, e) => this.DialogResult = DialogResult.Cancel;
+        _btnCancel.Click += (s, e) => DialogResult = DialogResult.Cancel;
 
-        this.Controls.Add(_lblPrompt);
-        this.Controls.Add(_txtLineNumber);
-        this.Controls.Add(_btnGoTo);
-        this.Controls.Add(_btnCancel);
+        Controls.Add(_lblPrompt);
+        Controls.Add(_txtLineNumber);
+        Controls.Add(_btnGoTo);
+        Controls.Add(_btnCancel);
 
-        this.AcceptButton = _btnGoTo;
-        this.CancelButton = _btnCancel;
+        AcceptButton = _btnGoTo;
+        CancelButton = _btnCancel;
     }
 
     public void ApplyTheme(ThemeManager theme)
     {
-        this.BackColor = theme.BackgroundColor;
-        this.ForeColor = theme.TextColor;
+        BackColor = theme.BackgroundColor;
+        ForeColor = theme.TextColor;
 
         _txtLineNumber.BackColor = theme.BackgroundColor;
         _txtLineNumber.ForeColor = theme.TextColor;

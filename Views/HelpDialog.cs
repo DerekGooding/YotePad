@@ -14,13 +14,13 @@ public class HelpDialog : Form
 
     public HelpDialog(Color backColor, Color foreColor)
     {
-        this.Text = "YotePad Help";
-        this.Size = new Size(550, 450);
-        this.StartPosition = FormStartPosition.CenterParent;
-        this.FormBorderStyle = FormBorderStyle.FixedDialog;
-        this.MaximizeBox = false;
-        this.MinimizeBox = false;
-        this.ShowIcon = false;
+        Text = "YotePad Help";
+        Size = new Size(550, 450);
+        StartPosition = FormStartPosition.CenterParent;
+        FormBorderStyle = FormBorderStyle.FixedDialog;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        ShowIcon = false;
 
         var txtHelp = new YoteTextBox
         {
@@ -35,14 +35,14 @@ public class HelpDialog : Form
             TabStop = false // Prevent auto-selection on load
         };
 
-        this.Controls.Add(txtHelp);
+        Controls.Add(txtHelp);
 
-        this.BackColor = backColor;
-        this.ForeColor = foreColor;
+        BackColor = backColor;
+        ForeColor = foreColor;
         txtHelp.BackColor = backColor;
         txtHelp.ForeColor = foreColor;
 
-        this.Shown += (s, e) => 
+        Shown += (s, e) => 
         {
             txtHelp.SelectionStart = 0;
             txtHelp.SelectionLength = 0;
@@ -53,7 +53,7 @@ public class HelpDialog : Form
         {
             // Force the Window title bar to use dark mode (Windows 11)
             int useImmersiveDarkMode = 1;
-            DwmSetWindowAttribute(this.Handle, 20, ref useImmersiveDarkMode, sizeof(int));
+            DwmSetWindowAttribute(Handle, 20, ref useImmersiveDarkMode, sizeof(int));
             
             // Force the internal scrollbar to use the dark explorer theme
             SetWindowTheme(txtHelp.Handle, "DarkMode_Explorer", null);

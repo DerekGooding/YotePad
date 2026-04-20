@@ -27,14 +27,14 @@ public class RecoveryDialog : Form
 
     private void InitializeComponent()
     {
-        this.Text = "YotePad — Session Recovery";
-        this.Size = new Size(560, 420);
-        this.StartPosition = FormStartPosition.CenterScreen;
-        this.FormBorderStyle = FormBorderStyle.FixedDialog;
-        this.MaximizeBox = false;
-        this.MinimizeBox = false;
-        this.ShowInTaskbar = false;
-        this.TopMost = true;
+        Text = "YotePad — Session Recovery";
+        Size = new Size(560, 420);
+        StartPosition = FormStartPosition.CenterScreen;
+        FormBorderStyle = FormBorderStyle.FixedDialog;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        ShowInTaskbar = false;
+        TopMost = true;
 
         // Header label
         Label lblHeader = new Label
@@ -70,11 +70,11 @@ public class RecoveryDialog : Form
         _btnDiscardAll.Location = new Point(432, 340);
         _btnDiscardAll.Click += BtnDiscardAll_Click;
 
-        this.Controls.Add(lblHeader);
-        this.Controls.Add(lblSub);
-        this.Controls.Add(_rowPanel);
-        this.Controls.Add(_btnRestoreSelected);
-        this.Controls.Add(_btnDiscardAll);
+        Controls.Add(lblHeader);
+        Controls.Add(lblSub);
+        Controls.Add(_rowPanel);
+        Controls.Add(_btnRestoreSelected);
+        Controls.Add(_btnDiscardAll);
     }
 
     private void PopulateRows()
@@ -106,8 +106,8 @@ public class RecoveryDialog : Form
     {
         // Spawn preview to the right of the recovery dialog
         Point spawnLocation = new Point(
-            this.Location.X + this.Width + 10,
-            this.Location.Y
+            Location.X + Width + 10,
+            Location.Y
         );
 
         var preview = new PreviewWindow(file, _themeManager, spawnLocation);
@@ -116,7 +116,7 @@ public class RecoveryDialog : Form
         preview.OnRecover += (f) =>
         {
             // Launch a new instance directly from preview — no routing through FilesToRestore
-            RecoveryLauncher.Launch(f, this.Location, 0);
+            RecoveryLauncher.Launch(f, Location, 0);
 
             var row = _rows.Find(r => r.RecoveryFile == f);
             if (row != null)
@@ -128,7 +128,7 @@ public class RecoveryDialog : Form
             preview.Close();
 
             // Close recovery dialog if this was the last file
-            if (_rows.Count == 0) this.DialogResult = DialogResult.OK;
+            if (_rows.Count == 0) DialogResult = DialogResult.OK;
         };
 
         preview.OnDelete += (f) =>
@@ -142,7 +142,7 @@ public class RecoveryDialog : Form
                 ReflowRows();
             }
             preview.Close();
-            if (_rows.Count == 0) this.DialogResult = DialogResult.Cancel;
+            if (_rows.Count == 0) DialogResult = DialogResult.Cancel;
         };
 
         preview.Show(); // Non-blocking — floats alongside recovery dialog
@@ -157,20 +157,20 @@ public class RecoveryDialog : Form
             else
                 RecoveryService.DeleteRecoveryFileAt(row.RecoveryFile.RecoveryFilePath);
         }
-        this.DialogResult = DialogResult.OK;
+        DialogResult = DialogResult.OK;
     }
 
     private void BtnDiscardAll_Click(object? sender, EventArgs e)
     {
         foreach (var row in _rows)
             RecoveryService.DeleteRecoveryFileAt(row.RecoveryFile.RecoveryFilePath);
-        this.DialogResult = DialogResult.Cancel;
+        DialogResult = DialogResult.Cancel;
     }
 
     public void ApplyTheme()
     {
-        this.BackColor = _themeManager.BackgroundColor;
-        this.ForeColor = _themeManager.TextColor;
+        BackColor = _themeManager.BackgroundColor;
+        ForeColor = _themeManager.TextColor;
         _rowPanel.BackColor = _themeManager.MenuBackgroundColor;
 
         Button[] buttons = { _btnRestoreSelected, _btnDiscardAll };
@@ -182,7 +182,7 @@ public class RecoveryDialog : Form
             btn.ForeColor = _themeManager.TextColor;
         }
 
-        foreach (Control c in this.Controls)
+        foreach (Control c in Controls)
         {
             if (c is Label lbl)
             {
@@ -213,8 +213,8 @@ public class RecoveryRowControl : Panel
     {
         RecoveryFile = file;
         _themeManager = themeManager;
-        this.Height = 32;
-        this.Padding = new Padding(0);
+        Height = 32;
+        Padding = new Padding(0);
 
         _chk.Checked = true;
         _chk.Size = new Size(20, 20);
@@ -234,17 +234,17 @@ public class RecoveryRowControl : Panel
         _btnPreview.Location = new Point(396, 4);
         _btnPreview.Click += (s, e) => OnPreview?.Invoke(RecoveryFile);
 
-        this.Controls.Add(_chk);
-        this.Controls.Add(_lblName);
-        this.Controls.Add(_btnPreview);
+        Controls.Add(_chk);
+        Controls.Add(_lblName);
+        Controls.Add(_btnPreview);
 
         ApplyTheme();
     }
 
     public void ApplyTheme()
     {
-        this.BackColor = _themeManager.MenuBackgroundColor;
-        this.ForeColor = _themeManager.TextColor;
+        BackColor = _themeManager.MenuBackgroundColor;
+        ForeColor = _themeManager.TextColor;
         _lblName.BackColor = _themeManager.MenuBackgroundColor;
         _lblName.ForeColor = _themeManager.TextColor;
         _chk.BackColor = _themeManager.MenuBackgroundColor;

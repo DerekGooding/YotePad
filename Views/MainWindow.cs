@@ -31,7 +31,7 @@ public partial class MainWindow : Form
         if (e.Category == Microsoft.Win32.UserPreferenceCategory.General)
         {
             // Safely marshal the update back to the main UI thread
-            this.Invoke(new Action(() =>
+            Invoke(new Action(() =>
             {
                 // Force the ThemeManager to re-read the Windows registry
                 _themeManager.InitializeTheme();
@@ -60,8 +60,8 @@ public partial class MainWindow : Form
 
         if (startPosition.HasValue)
         {
-            this.StartPosition = FormStartPosition.Manual;
-            this.Location = new Point(startPosition.Value.X + 24, startPosition.Value.Y + 24);
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(startPosition.Value.X + 24, startPosition.Value.Y + 24);
         }
 
         _themeManager.InitializeTheme();
@@ -79,9 +79,9 @@ public partial class MainWindow : Form
 
     private void InitializeComponents()
     {
-        this.Size = new Size(800, 500);
-        this.StartPosition = FormStartPosition.CenterScreen;
-        this.FormClosed += (s, e) => 
+        Size = new Size(800, 500);
+        StartPosition = FormStartPosition.CenterScreen;
+        FormClosed += (s, e) => 
         { 
             // Unhook the system event to prevent memory leaks
             Microsoft.Win32.SystemEvents.UserPreferenceChanged -= SystemEvents_UserPreferenceChanged;
@@ -150,7 +150,7 @@ public partial class MainWindow : Form
                 int staggerIndex = 0;
                 foreach (var file in dialog.FilesToRestore)
                 {
-                    RecoveryLauncher.Launch(file, this.Location, staggerIndex);
+                    RecoveryLauncher.Launch(file, Location, staggerIndex);
                     staggerIndex++;
                 }
             }
@@ -188,7 +188,7 @@ public partial class MainWindow : Form
             }
         };
 
-        this.Controls.Add(_mainTextBox);
+        Controls.Add(_mainTextBox);
         _mainTextBox.BringToFront();
     }
 
@@ -227,7 +227,7 @@ public partial class MainWindow : Form
 
         _statusBar.Items.Add(_btnLineEnding);
         _statusBar.Items.Add(_btnEncoding);
-        this.Controls.Add(_statusBar);
+        Controls.Add(_statusBar);
     }
 
     private void SetupMenu()
@@ -266,7 +266,7 @@ public partial class MainWindow : Form
 
         fileMenu.DropDownItems.Add(new ToolStripMenuItem("New", null, (s, e) => 
         { 
-            string pos = $"{this.Location.X},{this.Location.Y}";
+            string pos = $"{Location.X},{Location.Y}";
             System.Diagnostics.Process.Start(Application.ExecutablePath, $"--pos {pos}");
         }) { ShortcutKeys = Keys.Control | Keys.N });
 
@@ -336,7 +336,7 @@ public partial class MainWindow : Form
         
         fileMenu.DropDownItems.Add(new ToolStripSeparator());
         
-        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Exit", null, (s, e) => this.Close()) 
+        fileMenu.DropDownItems.Add(new ToolStripMenuItem("Exit", null, (s, e) => Close()) 
         { 
             ShortcutKeys = Keys.Alt | Keys.F4 
         });
@@ -426,7 +426,7 @@ public partial class MainWindow : Form
             MessageBox.Show("YotePad\n\nBecause nobody likes Windows 11 Notepad\n\nNobody!\n\nCreated by Yann Perodin (2026)", "About", MessageBoxButtons.OK, MessageBoxIcon.Information)));
 
         _topMenu.Items.AddRange(new ToolStripItem[] { fileMenu, editMenu, formatMenu, viewMenu, helpMenu });
-        this.Controls.Add(_topMenu);
+        Controls.Add(_topMenu);
     }
 
     private void ToggleWordWrap()
@@ -515,8 +515,8 @@ public partial class MainWindow : Form
 
         if (!_searchDialog.Visible)
         {
-            int x = this.Location.X + (this.Width - _searchDialog.Width) / 2;
-            int y = this.Location.Y + (int)(this.Height * 0.20);
+            int x = Location.X + (Width - _searchDialog.Width) / 2;
+            int y = Location.Y + (int)(Height * 0.20);
             _searchDialog.Location = new Point(x, y);
             _searchDialog.Show(this);
         }
@@ -609,7 +609,7 @@ public partial class MainWindow : Form
     private void UpdateUIState()
     {
         string zoom = _zoomPercent != 100 ? $" ({_zoomPercent}%)" : "";
-        this.Text = $"{(_isModified ? "*" : "")}{_fileService.GetFileName()} - YotePad{zoom}";
+        Text = $"{(_isModified ? "*" : "")}{_fileService.GetFileName()} - YotePad{zoom}";
         int index = _mainTextBox.SelectionStart + _mainTextBox.SelectionLength;
         int line = _mainTextBox.GetLineFromCharIndex(index);
         int column = index - _mainTextBox.GetFirstCharIndexFromLine(line);
@@ -737,7 +737,7 @@ public partial class MainWindow : Form
         try
         {
             _iconHandle = IntPtr.Zero;
-            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
         catch { }
     }

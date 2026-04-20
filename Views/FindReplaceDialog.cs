@@ -30,14 +30,14 @@ public class FindReplaceDialog : Form
 
     private void InitializeComponent()
     {
-        this.ClientSize = new Size(380, COLLAPSED_HEIGHT);
-        this.FormBorderStyle = FormBorderStyle.FixedDialog;
-        this.MaximizeBox = false;
-        this.MinimizeBox = false;
-        this.ShowIcon = false;
-        this.ShowInTaskbar = false;
-        this.StartPosition = FormStartPosition.Manual;
-        this.TopMost = true;
+        ClientSize = new Size(380, COLLAPSED_HEIGHT);
+        FormBorderStyle = FormBorderStyle.FixedDialog;
+        MaximizeBox = false;
+        MinimizeBox = false;
+        ShowIcon = false;
+        ShowInTaskbar = false;
+        StartPosition = FormStartPosition.Manual;
+        TopMost = true;
 
         // The magical expand/collapse button
         _btnToggleReplace.Text = "▽";
@@ -80,7 +80,7 @@ public class FindReplaceDialog : Form
         _btnReplaceAll.Click += (s, e) => OnReplaceAll?.Invoke(_txtFind.Text, _txtReplace.Text, _chkMatchCase.Checked, _chkMatchWholeWord.Checked);
 
         _btnCancel.Text = "Cancel";
-        _btnCancel.Click += (s, e) => this.Hide();
+        _btnCancel.Click += (s, e) => Hide();
 
         _chkMatchCase.Text = "Match case";
         _chkMatchCase.AutoSize = true;
@@ -93,7 +93,7 @@ public class FindReplaceDialog : Form
             Button btn = (Button)s!;
             if (!btn.Enabled)
             {
-                using (SolidBrush bgBrush = new SolidBrush(this.BackColor))
+                using (SolidBrush bgBrush = new SolidBrush(BackColor))
                 {
                     e.Graphics.FillRectangle(bgBrush, e.ClipRectangle);
                 }
@@ -106,27 +106,27 @@ public class FindReplaceDialog : Form
         _btnReplace.Paint += customPaint;
         _btnReplaceAll.Paint += customPaint;
 
-        this.Controls.Add(_btnToggleReplace);
-        this.Controls.Add(lblFind);
-        this.Controls.Add(_txtFind);
-        this.Controls.Add(_lblReplace);
-        this.Controls.Add(_txtReplace);
-        this.Controls.Add(_btnFindNext);
-        this.Controls.Add(_btnReplace);
-        this.Controls.Add(_btnReplaceAll);
-        this.Controls.Add(_btnCancel);
-        this.Controls.Add(_chkMatchCase);
-        this.Controls.Add(_chkMatchWholeWord);
+        Controls.Add(_btnToggleReplace);
+        Controls.Add(lblFind);
+        Controls.Add(_txtFind);
+        Controls.Add(_lblReplace);
+        Controls.Add(_txtReplace);
+        Controls.Add(_btnFindNext);
+        Controls.Add(_btnReplace);
+        Controls.Add(_btnReplaceAll);
+        Controls.Add(_btnCancel);
+        Controls.Add(_chkMatchCase);
+        Controls.Add(_chkMatchWholeWord);
 
-        this.AcceptButton = _btnFindNext;
-        this.CancelButton = _btnCancel;
+        AcceptButton = _btnFindNext;
+        CancelButton = _btnCancel;
 
-        this.FormClosing += (s, e) => 
+        FormClosing += (s, e) => 
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 e.Cancel = true;
-                this.Hide();
+                Hide();
             }
         };
     }
@@ -135,7 +135,7 @@ public class FindReplaceDialog : Form
     {
         _isExpanded = expand;
         _btnToggleReplace.Text = _isExpanded ? "△" : "▽";
-        this.Text = _isExpanded ? "Find and Replace" : "Find";
+        Text = _isExpanded ? "Find and Replace" : "Find";
         
         _lblReplace.Visible = _isExpanded;
         _txtReplace.Visible = _isExpanded;
@@ -144,7 +144,7 @@ public class FindReplaceDialog : Form
 
         if (_isExpanded)
         {
-            this.ClientSize = new Size(380, EXPANDED_HEIGHT);
+            ClientSize = new Size(380, EXPANDED_HEIGHT);
             _btnCancel.Location = new Point(285, 100);
             
             // Stacked neatly on the left side
@@ -153,7 +153,7 @@ public class FindReplaceDialog : Form
         }
         else
         {
-            this.ClientSize = new Size(380, COLLAPSED_HEIGHT);
+            ClientSize = new Size(380, COLLAPSED_HEIGHT);
             _btnCancel.Location = new Point(285, 40);
             
             // Stacked neatly on the left side
@@ -164,8 +164,8 @@ public class FindReplaceDialog : Form
 
    public void ApplyTheme(ThemeManager theme)
     {
-        this.BackColor = theme.BackgroundColor;
-        this.ForeColor = theme.TextColor;
+        BackColor = theme.BackgroundColor;
+        ForeColor = theme.TextColor;
         
         _txtFind.BackColor = theme.BackgroundColor;
         _txtFind.ForeColor = theme.TextColor;

@@ -28,14 +28,14 @@ public class PreviewWindow : Form
             ? "Preview — Untitled"
             : $"Preview — {System.IO.Path.GetFileName(_file.OriginalFilePath)}";
 
-        this.Text = title;
-        this.Size = new Size(600, 500);
-        this.StartPosition = FormStartPosition.Manual;
-        this.Location = spawnLocation;
-        this.FormBorderStyle = FormBorderStyle.Sizable;
-        this.MinimumSize = new Size(400, 300);
-        this.ShowInTaskbar = false;
-        this.TopMost = false;
+        Text = title;
+        Size = new Size(600, 500);
+        StartPosition = FormStartPosition.Manual;
+        Location = spawnLocation;
+        FormBorderStyle = FormBorderStyle.Sizable;
+        MinimumSize = new Size(400, 300);
+        ShowInTaskbar = false;
+        TopMost = false;
 
         // Button strip at the top
         Panel btnPanel = new Panel
@@ -47,7 +47,7 @@ public class PreviewWindow : Form
         _btnClose.Text = "Close";
         _btnClose.Size = new Size(80, 26);
         _btnClose.Location = new Point(8, 5);
-        _btnClose.Click += (s, e) => this.Close();
+        _btnClose.Click += (s, e) => Close();
 
         _btnRecover.Text = "Recover";
         _btnRecover.Size = new Size(80, 26);
@@ -72,26 +72,26 @@ public class PreviewWindow : Form
         _txtPreview.Text = _file.Content;
         _txtPreview.Font = new Font("Consolas", 10f);
 
-        this.Controls.Add(_txtPreview);
-        this.Controls.Add(btnPanel);
+        Controls.Add(_txtPreview);
+        Controls.Add(btnPanel);
 
         // Apply dark scrollbar after handle is created
-        this.Load += (s, e) =>
+        Load += (s, e) =>
         {
             int darkVal = _themeManager.IsDarkMode ? 1 : 0;
-            NativeMethods.DwmSetWindowAttribute(this.Handle, NativeMethods.DWMWA_USE_IMMERSIVE_DARK_MODE, ref darkVal, sizeof(int));
+            NativeMethods.DwmSetWindowAttribute(Handle, NativeMethods.DWMWA_USE_IMMERSIVE_DARK_MODE, ref darkVal, sizeof(int));
             NativeMethods.SetWindowTheme(_txtPreview.Handle, _themeManager.IsDarkMode ? "DarkMode_Explorer" : "Explorer", null);
         };
     }
 
     public void ApplyTheme()
     {
-        this.BackColor = _themeManager.BackgroundColor;
-        this.ForeColor = _themeManager.TextColor;
+        BackColor = _themeManager.BackgroundColor;
+        ForeColor = _themeManager.TextColor;
         _txtPreview.BackColor = _themeManager.BackgroundColor;
         _txtPreview.ForeColor = _themeManager.TextColor;
 
-        foreach (Control c in this.Controls)
+        foreach (Control c in Controls)
         {
             if (c is Panel panel)
             {
