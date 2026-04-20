@@ -1,4 +1,4 @@
-namespace Yotepad.Dialogs;
+namespace Yotepad.Views;
 
 public class FindReplaceDialog : Form
 {
@@ -90,7 +90,7 @@ public class FindReplaceDialog : Form
         _chkMatchWholeWord.Text = "Match whole word";
         _chkMatchWholeWord.AutoSize = true;
 
-        PaintEventHandler customPaint = (s, e) =>
+        void customPaint(object? s, PaintEventArgs e)
         {
             Button btn = (Button)s!;
             if (!btn.Enabled)
@@ -102,7 +102,7 @@ public class FindReplaceDialog : Form
                 ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.DimGray, ButtonBorderStyle.Solid);
                 TextRenderer.DrawText(e.Graphics, btn.Text, btn.Font, e.ClipRectangle, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
             }
-        };
+        }
 
         _btnFindNext.Paint += customPaint;
         _btnReplace.Paint += customPaint;

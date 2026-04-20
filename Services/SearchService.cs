@@ -83,10 +83,7 @@ public class SearchService
 
         // Check character after — must be end of text or non-word character
         int after = index + length;
-        if (after < fullText.Length && IsWordChar(fullText[after]))
-            return false;
-
-        return true;
+        return after >= fullText.Length || !IsWordChar(fullText[after]);
     }
 
     private bool IsWordChar(char c) => char.IsLetterOrDigit(c) || c == '_';

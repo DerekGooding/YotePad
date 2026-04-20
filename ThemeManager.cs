@@ -73,11 +73,9 @@ public class ThemeManager
     }
 }
 
-public class YotePadMenuRenderer : ToolStripProfessionalRenderer
+public class YotePadMenuRenderer(ThemeManager theme) : ToolStripProfessionalRenderer()
 {
-    private readonly ThemeManager _theme;
-
-    public YotePadMenuRenderer(ThemeManager theme) : base() => _theme = theme;
+    private readonly ThemeManager _theme = theme;
 
     protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
     {

@@ -1,4 +1,4 @@
-namespace Yotepad.Dialogs;
+namespace Yotepad.Views;
 
 public class GoToLineDialog : Form
 {

@@ -1,6 +1,6 @@
 using Yotepad.Services;
 
-namespace Yotepad.Dialogs;
+namespace Yotepad.Views;
 
 public class PreviewWindow : Form
 {

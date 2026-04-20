@@ -38,7 +38,7 @@ public class YoteTextBox : TextBox
         {
             char nextChar = Text[SelectionStart];
 
-            if (nextChar != '\r' && nextChar != '\n')
+            if (nextChar is not '\r' and not '\n')
             {
                 SelectionLength = 1;
             }

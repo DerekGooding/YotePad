@@ -1,5 +1,4 @@
 // RecoveryDialog.cs
-using Yotepad.Dialogs;
 using Yotepad.Services;
 
 namespace Yotepad.Views;
@@ -14,7 +13,7 @@ public class RecoveryDialog : Form
     private readonly Button _btnDiscardAll = new();
 
     // Returns the files the user chose to restore
-    public List<RecoveryFile> FilesToRestore { get; private set; } = [];
+    public List<RecoveryFile> FilesToRestore { get; } = [];
 
     public RecoveryDialog(RecoveryFile[] files, ThemeManager themeManager)
     {

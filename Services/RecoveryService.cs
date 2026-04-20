@@ -15,7 +15,7 @@ public class RecoveryService : IDisposable
     public RecoveryService()
     {
         string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        int pid = System.Diagnostics.Process.GetCurrentProcess().Id;
+        int pid = Environment.ProcessId;
         _recoveryFilePath = Path.Combine(RecoveryFolder, $"recovery_{timestamp}_{pid}.ypr");
         _lockFilePath = _recoveryFilePath + ".lock";
 

@@ -1,4 +1,3 @@
-using Yotepad.Dialogs;
 using Yotepad.Services;
 using Yotepad.Views;
 
@@ -470,8 +469,7 @@ public partial class MainWindow : Form
     {
         if (!_isModified) return true;
         var result = MessageBox.Show($"Do you want to save changes to {_fileService.GetFileName()}?", "YotePad", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-        if (result == DialogResult.Yes) return _fileService.SaveFile(_mainTextBox.Text);
-        return result == DialogResult.No;
+        return result == DialogResult.Yes ? _fileService.SaveFile(_mainTextBox.Text) : result == DialogResult.No;
     }
 
     private void LoadInitialFile(string path)
@@ -498,7 +496,7 @@ public partial class MainWindow : Form
 
     private void ShowSearchDialog(bool replaceMode)
     {
-        if (_searchDialog == null || _searchDialog.IsDisposed)
+        if (_searchDialog?.IsDisposed != false)
         {
             _searchDialog = new FindReplaceDialog(_themeManager);
             _searchDialog.OnFindNext += (term, matchCase, matchWholeWord) => ExecuteFind(term, matchCase, matchWholeWord, true);
@@ -508,7 +506,7 @@ public partial class MainWindow : Form
 
         _searchDialog.SetMode(replaceMode);
 
-        if (_mainTextBox.SelectionLength > 0 && !_mainTextBox.SelectedText.Contains("\n"))
+        if (_mainTextBox.SelectionLength > 0 && !_mainTextBox.SelectedText.Contains('\n'))
         {
             _searchDialog.SetSearchTerm(_mainTextBox.SelectedText);
         }
@@ -520,7 +518,10 @@ public partial class MainWindow : Form
             _searchDialog.Location = new Point(x, y);
             _searchDialog.Show(this);
         }
-        else _searchDialog.Focus();
+        else
+        {
+            _searchDialog.Focus();
+        }
     }
 
     private void ExecuteFind(string term, bool matchCase, bool matchWholeWord, bool searchDown)
@@ -600,8 +601,7 @@ public partial class MainWindow : Form
         if (enc is System.Text.UTF8Encoding utf8) return utf8.GetPreamble().Length > 0 ? "UTF-8 with BOM" : "UTF-8";
         if (enc.CodePage == System.Text.Encoding.Unicode.CodePage) return "UTF-16 LE";
         if (enc.CodePage == System.Text.Encoding.BigEndianUnicode.CodePage) return "UTF-16 BE";
-        if (enc.CodePage == 1252) return "ANSI";
-        return enc.EncodingName;
+        return enc.CodePage == 1252 ? "ANSI" : enc.EncodingName;
     }
 
     private void UpdateUIState()

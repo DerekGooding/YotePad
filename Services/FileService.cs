@@ -100,10 +100,10 @@ public class FileService
         if (string.IsNullOrEmpty(input)) return input;
 
         // Detect the predominant line ending in the file
-        if (input.Contains("\r\n")) CurrentLineEnding = LineEndingType.CRLF;
-        else if (input.Contains("\n")) CurrentLineEnding = LineEndingType.LF;
-        else if (input.Contains("\r")) CurrentLineEnding = LineEndingType.CR;
-        else CurrentLineEnding = LineEndingType.CRLF;
+        CurrentLineEnding = input.Contains("\r\n")
+            ? LineEndingType.CRLF : input.Contains('\n')
+            ? LineEndingType.LF : input.Contains('\r')
+            ? LineEndingType.CR : LineEndingType.CRLF;
 
         // Normalize everything to standard Windows format for the text box UI
         string normalized = input.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
