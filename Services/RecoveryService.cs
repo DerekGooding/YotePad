@@ -150,10 +150,8 @@ public class RecoveryService : IDisposable
     {
         try
         {
-            using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-            {
-                return false;
-            }
+            using FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            return false;
         }
         catch (IOException)
         {

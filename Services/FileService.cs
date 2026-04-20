@@ -34,19 +34,17 @@ public class FileService
 
     public string? OpenFile()
     {
-        using (OpenFileDialog ofd = new OpenFileDialog { Filter = FileFilter, FilterIndex = 1 })
+        using OpenFileDialog ofd = new OpenFileDialog { Filter = FileFilter, FilterIndex = 1 };
+        if (ofd.ShowDialog() == DialogResult.OK)
         {
-            if (ofd.ShowDialog() == DialogResult.OK)
+            try
             {
-                try
-                {
-                    return LoadFile(ofd.FileName);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error opening file: {ex.Message}", "YotePad", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
+                return LoadFile(ofd.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening file: {ex.Message}", "YotePad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
         return null;
@@ -78,21 +76,19 @@ public class FileService
 
     public bool SaveFileAs(string content)
     {
-        using (SaveFileDialog sfd = new SaveFileDialog { Filter = FileFilter, FilterIndex = 1 })
+        using SaveFileDialog sfd = new SaveFileDialog { Filter = FileFilter, FilterIndex = 1 };
+        if (sfd.ShowDialog() == DialogResult.OK)
         {
-            if (sfd.ShowDialog() == DialogResult.OK)
+            try
             {
-                try
-                {
-                    File.WriteAllText(sfd.FileName, FormatForSaving(content), CurrentEncoding);
-                    CurrentFilePath = sfd.FileName;
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error saving file: {ex.Message}", "YotePad", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
+                File.WriteAllText(sfd.FileName, FormatForSaving(content), CurrentEncoding);
+                CurrentFilePath = sfd.FileName;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving file: {ex.Message}", "YotePad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
         return false;

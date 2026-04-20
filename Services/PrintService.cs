@@ -20,11 +20,9 @@ public class PrintService
 
     public void ShowPageSetup()
     {
-        using (PageSetupDialog setupDialog = new PageSetupDialog())
-        {
-            setupDialog.Document = _printDocument;
-            setupDialog.ShowDialog();
-        }
+        using PageSetupDialog setupDialog = new PageSetupDialog();
+        setupDialog.Document = _printDocument;
+        setupDialog.ShowDialog();
     }
 
     public void Print(string text, Font font)
@@ -34,21 +32,19 @@ public class PrintService
         _textToPrint = text;
         _printFont = font;
 
-        using (PrintDialog printDialog = new PrintDialog())
-        {
-            printDialog.Document = _printDocument;
-            printDialog.UseEXDialog = true; // Use the modern Windows print dialog
+        using PrintDialog printDialog = new PrintDialog();
+        printDialog.Document = _printDocument;
+        printDialog.UseEXDialog = true; // Use the modern Windows print dialog
 
-            if (printDialog.ShowDialog() == DialogResult.OK)
+        if (printDialog.ShowDialog() == DialogResult.OK)
+        {
+            try
             {
-                try
-                {
-                    _printDocument.Print();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error printing: {ex.Message}", "YotePad", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                _printDocument.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error printing: {ex.Message}", "YotePad", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
@@ -103,16 +99,14 @@ public class PrintService
         _textToPrint = text;
         _printFont = font;
 
-        using (PrintPreviewDialog previewDialog = new PrintPreviewDialog())
-        {
-            previewDialog.Document = _printDocument;
-            previewDialog.ShowIcon = false;
-            previewDialog.Text = "YotePad Print Preview";
-            previewDialog.Width = 800;
-            previewDialog.Height = 600;
-            previewDialog.StartPosition = FormStartPosition.CenterParent;
-            
-            previewDialog.ShowDialog();
-        }
+        using PrintPreviewDialog previewDialog = new PrintPreviewDialog();
+        previewDialog.Document = _printDocument;
+        previewDialog.ShowIcon = false;
+        previewDialog.Text = "YotePad Print Preview";
+        previewDialog.Width = 800;
+        previewDialog.Height = 600;
+        previewDialog.StartPosition = FormStartPosition.CenterParent;
+
+        previewDialog.ShowDialog();
     }
 }

@@ -14,12 +14,10 @@ public class ThemeManager
     {
         try
         {
-            using (RegistryKey? key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"))
+            using RegistryKey? key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+            if (key?.GetValue("AppsUseLightTheme") is int lightTheme)
             {
-                if (key?.GetValue("AppsUseLightTheme") is int lightTheme)
-                {
-                    IsDarkMode = (lightTheme == 0);
-                }
+                IsDarkMode = (lightTheme == 0);
             }
         }
         catch { IsDarkMode = true; }
@@ -95,18 +93,14 @@ protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs 
 
     if (e.Item.Selected || e.Item.Pressed)
     {
-        using (SolidBrush brush = new SolidBrush(Color.FromArgb(80, 80, 80)))
-        {
+            using SolidBrush brush = new SolidBrush(Color.FromArgb(80, 80, 80));
             e.Graphics.FillRectangle(brush, rect);
         }
-    }
     else
     {
-        using (SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor))
-        {
+            using SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor);
             e.Graphics.FillRectangle(brush, rect);
         }
-    }
 }
 
 protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
@@ -117,11 +111,9 @@ protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
         return;
     }
 
-    using (SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor))
-    {
+        using SolidBrush brush = new SolidBrush(_theme.MenuBackgroundColor);
         e.Graphics.FillRectangle(brush, e.AffectedBounds);
     }
-}
 
 protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
 {
@@ -132,11 +124,9 @@ protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
     }
 
     int y = e.Item.Height / 2;
-    using (Pen pen = new Pen(Color.FromArgb(70, 70, 70)))
-    {
+        using Pen pen = new Pen(Color.FromArgb(70, 70, 70));
         e.Graphics.DrawLine(pen, 4, y, e.Item.Width - 4, y);
     }
-}
 
 protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
 {

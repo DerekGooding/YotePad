@@ -141,18 +141,16 @@ public partial class MainWindow : Form
 
     private void ShowRecoveryDialog(RecoveryFile[] files)
     {
-        using (var dialog = new RecoveryDialog(files, _themeManager))
-        {
-            var result = dialog.ShowDialog(this);
+        using var dialog = new RecoveryDialog(files, _themeManager);
+        var result = dialog.ShowDialog(this);
 
-            if (result == DialogResult.OK && dialog.FilesToRestore.Count > 0)
+        if (result == DialogResult.OK && dialog.FilesToRestore.Count > 0)
+        {
+            int staggerIndex = 0;
+            foreach (var file in dialog.FilesToRestore)
             {
-                int staggerIndex = 0;
-                foreach (var file in dialog.FilesToRestore)
-                {
-                    RecoveryLauncher.Launch(file, Location, staggerIndex);
-                    staggerIndex++;
-                }
+                RecoveryLauncher.Launch(file, Location, staggerIndex);
+                staggerIndex++;
             }
         }
     }
@@ -384,14 +382,12 @@ public partial class MainWindow : Form
         formatMenu.DropDownItems.Add(_wordWrapMenuItem);
         formatMenu.DropDownItems.Add(new ToolStripMenuItem("Font...", null, (s, e) => 
         {
-            using (FontDialog fd = new FontDialog())
+            using FontDialog fd = new FontDialog();
+            fd.Font = _mainTextBox.Font;
+            fd.ShowColor = false;
+            if (fd.ShowDialog() == DialogResult.OK)
             {
-                fd.Font = _mainTextBox.Font;
-                fd.ShowColor = false;
-                if (fd.ShowDialog() == DialogResult.OK)
-                {
-                    _mainTextBox.Font = fd.Font;
-                }
+                _mainTextBox.Font = fd.Font;
             }
         }));
 
@@ -414,10 +410,8 @@ public partial class MainWindow : Form
         helpMenu.DropDownItems.Add(new ToolStripMenuItem("View Help", null, (s, e) => 
         {
             // Grab the colors directly from the text editor to ensure perfect contrast
-            using (var helpDialog = new HelpDialog(_mainTextBox.BackColor, _mainTextBox.ForeColor))
-            {
-                helpDialog.ShowDialog(this);
-            }
+            using var helpDialog = new HelpDialog(_mainTextBox.BackColor, _mainTextBox.ForeColor);
+            helpDialog.ShowDialog(this);
         }));
         
         helpMenu.DropDownItems.Add(new ToolStripSeparator());
@@ -580,19 +574,17 @@ public partial class MainWindow : Form
         int currentLine = _mainTextBox.GetLineFromCharIndex(currentIndex) + 1;
         int maxLine = _mainTextBox.GetLineFromCharIndex(_mainTextBox.Text.Length) + 1;
 
-        using (var dialog = new GoToLineDialog(_themeManager, currentLine, maxLine))
+        using var dialog = new GoToLineDialog(_themeManager, currentLine, maxLine);
+        if (dialog.ShowDialog(this) == DialogResult.OK)
         {
-            if (dialog.ShowDialog(this) == DialogResult.OK)
+            int charIndex = _mainTextBox.GetFirstCharIndexFromLine(dialog.LineNumber - 1);
+            if (charIndex >= 0)
             {
-                int charIndex = _mainTextBox.GetFirstCharIndexFromLine(dialog.LineNumber - 1);
-                if (charIndex >= 0)
-                {
-                    _mainTextBox.SelectionStart = charIndex;
-                    _mainTextBox.SelectionLength = 0;
-                    _mainTextBox.ScrollToCaret();
-                    _mainTextBox.Focus();
-                    UpdateUIState();
-                }
+                _mainTextBox.SelectionStart = charIndex;
+                _mainTextBox.SelectionLength = 0;
+                _mainTextBox.ScrollToCaret();
+                _mainTextBox.Focus();
+                UpdateUIState();
             }
         }
     }
