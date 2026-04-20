@@ -5,7 +5,18 @@ namespace YotePad.Helpers;
 [Singleton]
 public class ThemeManager
 {
-    public bool IsDarkMode { get; private set; }
+    public event Action? ThemeChanged;
+
+    public bool IsDarkMode
+    {
+        get;
+        private set
+        {
+            if (field == value) return;
+            field = value;
+            ThemeChanged?.Invoke();
+        }
+    }
 
     public Color BackgroundColor => IsDarkMode ? Color.FromArgb(30, 30, 30) : Color.White;
     public Color TextColor => IsDarkMode ? Color.FromArgb(220, 220, 220) : Color.Black;

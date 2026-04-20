@@ -24,7 +24,7 @@ public class PreviewWindow : Form
     {
         var title = string.IsNullOrEmpty(_file.OriginalFilePath)
             ? "Preview — Untitled"
-            : $"Preview — {System.IO.Path.GetFileName(_file.OriginalFilePath)}";
+            : $"Preview — {Path.GetFileName(_file.OriginalFilePath)}";
 
         Text = title;
         Size = new Size(600, 500);

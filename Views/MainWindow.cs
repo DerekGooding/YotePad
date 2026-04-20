@@ -1,3 +1,5 @@
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 namespace YotePad;
 
 public partial class MainWindow : Form
@@ -56,6 +58,8 @@ public partial class MainWindow : Form
     {
         InitializeComponent();
         InitializeComponents();
+
+        _themeManager.ThemeChanged += () => _themeManager.ApplyTheme(this, _mainTextBox, _topMenu, _statusBar);
 
         if (startPosition.HasValue)
         {
@@ -177,7 +181,7 @@ public partial class MainWindow : Form
         _mainTextBox.MouseUp += (s, e) => UpdateUIState();
         _mainTextBox.MouseWheel += (s, e) =>
         {
-            if (Control.ModifierKeys == Keys.Control)
+            if (ModifierKeys == Keys.Control)
             {
                 if (e.Delta > 0) ZoomIn();
                 else ZoomOut();
@@ -204,13 +208,13 @@ public partial class MainWindow : Form
 
         // Encoding Button Setup
         _btnEncoding.ShowDropDownArrow = false;
-        var encodings = new (string Name, System.Text.Encoding Enc)[]
+        var encodings = new (string Name, Encoding Enc)[]
         {
-            ("ANSI", System.Text.Encoding.GetEncoding(1252)),
-            ("UTF-8", new System.Text.UTF8Encoding(false)),
-            ("UTF-8 with BOM", new System.Text.UTF8Encoding(true)),
-            ("UTF-16 LE", System.Text.Encoding.Unicode),
-            ("UTF-16 BE", System.Text.Encoding.BigEndianUnicode)
+            ("ANSI", Encoding.GetEncoding(1252)),
+            ("UTF-8", new UTF8Encoding(false)),
+            ("UTF-8 with BOM", new UTF8Encoding(true)),
+            ("UTF-16 LE", Encoding.Unicode),
+            ("UTF-16 BE", Encoding.BigEndianUnicode)
         };
 
         foreach (var enc in encodings)
@@ -230,16 +234,16 @@ public partial class MainWindow : Form
     private void SetupMenu()
     {
         // --- ENCODING MENU (Created first so we can add it to File) ---
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         var encodingMenu = new ToolStripMenuItem("Encoding");
 
-        var encodings = new (string Name, System.Text.Encoding Enc)[]
+        var encodings = new (string Name, Encoding Enc)[]
         {
-            ("ANSI", System.Text.Encoding.GetEncoding(1252)),
-            ("UTF-8", new System.Text.UTF8Encoding(false)),
-            ("UTF-8 with BOM", new System.Text.UTF8Encoding(true)),
-            ("UTF-16 LE", System.Text.Encoding.Unicode),
-            ("UTF-16 BE", System.Text.Encoding.BigEndianUnicode)
+            ("ANSI", Encoding.GetEncoding(1252)),
+            ("UTF-8", new UTF8Encoding(false)),
+            ("UTF-8 with BOM", new UTF8Encoding(true)),
+            ("UTF-16 LE", Encoding.Unicode),
+            ("UTF-16 BE", Encoding.BigEndianUnicode)
         };
 
         foreach (var enc in encodings)
@@ -446,7 +450,7 @@ public partial class MainWindow : Form
 
     private void RefreshTheme()
     {
-        _themeManager.ApplyTheme(this, _mainTextBox, _topMenu, _statusBar);
+        //_themeManager.ApplyTheme(this, _mainTextBox, _topMenu, _statusBar);
         _searchDialog?.ApplyTheme();
 
         // Force the status bar popups to inherit the themed colors

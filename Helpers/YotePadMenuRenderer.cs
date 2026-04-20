@@ -6,12 +6,6 @@ public class YotePadMenuRenderer : ToolStripProfessionalRenderer
 
     protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
     {
-        if (!_theme.IsDarkMode)
-        {
-            base.OnRenderMenuItemBackground(e);
-            return;
-        }
-
         var rect = new Rectangle(Point.Empty, e.Item.Size);
 
         if (e.Item.Selected || e.Item.Pressed)
@@ -28,24 +22,12 @@ public class YotePadMenuRenderer : ToolStripProfessionalRenderer
 
     protected override void OnRenderToolStripBackground(ToolStripRenderEventArgs e)
     {
-        if (!_theme.IsDarkMode)
-        {
-            base.OnRenderToolStripBackground(e);
-            return;
-        }
-
         using var brush = new SolidBrush(_theme.MenuBackgroundColor);
         e.Graphics.FillRectangle(brush, e.AffectedBounds);
     }
 
     protected override void OnRenderSeparator(ToolStripSeparatorRenderEventArgs e)
     {
-        if (!_theme.IsDarkMode)
-        {
-            base.OnRenderSeparator(e);
-            return;
-        }
-
         var y = e.Item.Height / 2;
         using var pen = new Pen(Color.FromArgb(70, 70, 70));
         e.Graphics.DrawLine(pen, 4, y, e.Item.Width - 4, y);
@@ -53,12 +35,6 @@ public class YotePadMenuRenderer : ToolStripProfessionalRenderer
 
     protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
     {
-        if (!_theme.IsDarkMode)
-        {
-            base.OnRenderItemText(e);
-            return;
-        }
-
         e.TextColor = e.Item.Enabled
             ? Color.FromArgb(220, 220, 220)
             : Color.FromArgb(110, 110, 110);

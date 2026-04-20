@@ -1,4 +1,4 @@
-namespace YotePad.Services;
+namespace YotePad.Helpers;
 
 public static class SearchHelper
 {
@@ -85,7 +85,7 @@ public static class SearchHelper
             return fullText.Replace(searchTerm, replaceTerm ?? string.Empty, comparison);
 
         // Whole word replace — walk the string manually
-        var result = new System.Text.StringBuilder();
+        var result = new StringBuilder();
         var pos = 0;
         while (pos < fullText.Length)
         {

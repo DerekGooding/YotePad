@@ -72,7 +72,7 @@ public class PrintService
             printArea.Size,
             StringFormat.GenericTypographic,
             out var charactersFitted,
-            out var linesFilled);
+            out var _);
 
         // Draw the text onto the paper
         e.Graphics.DrawString(
