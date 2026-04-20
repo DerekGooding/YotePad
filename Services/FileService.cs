@@ -122,7 +122,7 @@ public class FileService
         };
     }
 
-    private Encoding DetectEncoding(byte[] bytes)
+    private static Encoding DetectEncoding(byte[] bytes)
     {
         if (bytes.Length >= 3 && bytes[0] == 0xEF && bytes[1] == 0xBB && bytes[2] == 0xBF)
             return new UTF8Encoding(true);

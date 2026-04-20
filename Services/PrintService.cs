@@ -2,6 +2,7 @@ using System.Drawing.Printing;
 
 namespace Yotepad.Services;
 
+[Singleton]
 public class PrintService
 {
     private readonly PrintDocument _printDocument = new();

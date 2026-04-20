@@ -1,5 +1,6 @@
 namespace Yotepad.Services;
 
+[Singleton]
 public class SearchService
 {
     public string LastSearchTerm { get; private set; } = string.Empty;

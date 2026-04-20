@@ -1,3 +1,5 @@
+using Yotepad.Helpers;
+
 namespace Yotepad.Views;
 
 public class GoToLineDialog : Form

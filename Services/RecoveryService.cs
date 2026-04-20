@@ -2,7 +2,7 @@ namespace Yotepad.Services;
 
 public class RecoveryService : IDisposable
 {
-    private static readonly string RecoveryFolder = Path.Combine(
+    private static readonly string _recoveryFolder = Path.Combine(
     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
     "YannPerodin", "YotePad", "Recovery"
 );
@@ -16,10 +16,10 @@ public class RecoveryService : IDisposable
     {
         var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         var pid = Environment.ProcessId;
-        _recoveryFilePath = Path.Combine(RecoveryFolder, $"recovery_{timestamp}_{pid}.ypr");
+        _recoveryFilePath = Path.Combine(_recoveryFolder, $"recovery_{timestamp}_{pid}.ypr");
         _lockFilePath = _recoveryFilePath + ".lock";
 
-        Directory.CreateDirectory(RecoveryFolder);
+        Directory.CreateDirectory(_recoveryFolder);
 
         try
         {
@@ -79,6 +79,7 @@ public class RecoveryService : IDisposable
 
     public void Dispose()
     {
+        GC.SuppressFinalize(this);
         _lockStream?.Close();
         _lockStream?.Dispose();
         _lockStream = null;
@@ -88,14 +89,14 @@ public class RecoveryService : IDisposable
     {
         try
         {
-            if (!Directory.Exists(RecoveryFolder)) return [];
+            if (!Directory.Exists(_recoveryFolder)) return [];
 
-            foreach (var orphan in Directory.GetFiles(RecoveryFolder, "*.ypr.restoring"))
+            foreach (var orphan in Directory.GetFiles(_recoveryFolder, "*.ypr.restoring"))
             {
                 try { File.Delete(orphan); } catch { }
             }
 
-            foreach (var lockFile in Directory.GetFiles(RecoveryFolder, "*.ypr.lock"))
+            foreach (var lockFile in Directory.GetFiles(_recoveryFolder, "*.ypr.lock"))
             {
                 if (!IsFileLocked(lockFile))
                 {
@@ -103,7 +104,7 @@ public class RecoveryService : IDisposable
                 }
             }
 
-            var files = Directory.GetFiles(RecoveryFolder, "*.ypr");
+            var files = Directory.GetFiles(_recoveryFolder, "*.ypr");
             var results = new List<RecoveryFile>();
 
             foreach (var file in files)
@@ -158,16 +159,4 @@ public class RecoveryService : IDisposable
             return true;
         }
     }
-}
-
-public class RecoveryFile
-{
-    public string RecoveryFilePath { get; set; } = string.Empty;
-    public string OriginalFilePath { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty;
-    public DateTime Timestamp { get; set; }
-
-    public string DisplayName => string.IsNullOrEmpty(OriginalFilePath)
-        ? $"Untitled — {Timestamp:MMM d, h:mm tt}"
-        : $"{Path.GetFileName(OriginalFilePath)} — {Timestamp:MMM d, h:mm tt}";
 }

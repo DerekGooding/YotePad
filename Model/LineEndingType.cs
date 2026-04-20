@@ -1,4 +1,4 @@
-namespace Yotepad.Services;
+namespace Yotepad.Model;
 
 public enum LineEndingType
 {
