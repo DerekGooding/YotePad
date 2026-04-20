@@ -2,16 +2,16 @@ namespace Yotepad.Dialogs;
 
 public class FindReplaceDialog : Form
 {
-    private TextBox _txtFind = new TextBox();
-    private TextBox _txtReplace = new TextBox();
-    private CheckBox _chkMatchCase = new CheckBox();
-    private CheckBox _chkMatchWholeWord = new CheckBox();
-    private Button _btnFindNext = new Button();
-    private Button _btnReplace = new Button();
-    private Button _btnReplaceAll = new Button();
-    private Button _btnCancel = new Button();
-    private Button _btnToggleReplace = new Button();
-    private Label _lblReplace = new Label();
+    private readonly TextBox _txtFind = new TextBox();
+    private readonly TextBox _txtReplace = new TextBox();
+    private readonly CheckBox _chkMatchCase = new CheckBox();
+    private readonly CheckBox _chkMatchWholeWord = new CheckBox();
+    private readonly Button _btnFindNext = new Button();
+    private readonly Button _btnReplace = new Button();
+    private readonly Button _btnReplaceAll = new Button();
+    private readonly Button _btnCancel = new Button();
+    private readonly Button _btnToggleReplace = new Button();
+    private readonly Label _lblReplace = new Label();
 
     private bool _isExpanded = false;
     private const int COLLAPSED_HEIGHT = 190;

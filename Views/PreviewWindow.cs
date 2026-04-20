@@ -6,10 +6,10 @@ public class PreviewWindow : Form
 {
     private readonly RecoveryFile _file;
     private readonly ThemeManager _themeManager;
-    private TextBox _txtPreview = new TextBox();
-    private Button _btnClose = new Button();
-    private Button _btnRecover = new Button();
-    private Button _btnDelete = new Button();
+    private readonly TextBox _txtPreview = new TextBox();
+    private readonly Button _btnClose = new Button();
+    private readonly Button _btnRecover = new Button();
+    private readonly Button _btnDelete = new Button();
 
     public event Action<RecoveryFile>? OnRecover;
     public event Action<RecoveryFile>? OnDelete;
