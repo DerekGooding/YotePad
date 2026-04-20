@@ -1,5 +1,8 @@
+using System.Diagnostics;
+
 namespace YotePad.Helpers;
 
+[Scoped]
 public static class RecoveryLauncher
 {
     // Launches a new YotePad instance with the recovered content.
@@ -40,18 +43,13 @@ public static class RecoveryLauncher
             // so we pass the raw target minus 24 to land exactly where we want
             var adjustedPos = $"{spawnPos.X - 24},{spawnPos.Y - 24}";
 
-            Process.Start(
-             Application.ExecutablePath,
-             $"--restore \"{tempPath}\" --original \"{file.OriginalFilePath}\" --pos {adjustedPos} --no-recovery"
-         );
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = Application.ExecutablePath,
+                Arguments = $"--restore \"{tempPath}\" --original \"{file.OriginalFilePath}\" --pos {adjustedPos} --no-recovery",
+                UseShellExecute = false
+            });
         }
         catch { }
-    }
-
-    // Hack: need a local alias since we can't use System.Diagnostics.Process directly
-    // in a static class without an explicit using, and we want one file self-contained
-    private static class Process
-    {
-        public static void Start(string fileName, string arguments) => System.Diagnostics.Process.Start(fileName, arguments);
     }
 }

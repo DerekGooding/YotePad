@@ -18,7 +18,7 @@ public class ThemeManager
             using var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize");
             if (key?.GetValue("AppsUseLightTheme") is int lightTheme)
             {
-                IsDarkMode = (lightTheme == 0);
+                IsDarkMode = lightTheme == 0;
             }
         }
         catch { IsDarkMode = true; }
