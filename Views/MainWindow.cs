@@ -139,7 +139,7 @@ public partial class MainWindow : Form
 
     private void ShowRecoveryDialog(RecoveryFile[] files)
     {
-        using var dialog = new RecoveryDialog(files, _themeManager);
+        using var dialog = new RecoveryDialog(files);
         var result = dialog.ShowDialog(this);
 
         if (result == DialogResult.OK && dialog.FilesToRestore.Count > 0)
@@ -446,7 +446,7 @@ public partial class MainWindow : Form
     private void RefreshTheme()
     {
         _themeManager.ApplyTheme(this, _mainTextBox, _topMenu, _statusBar);
-        _searchDialog?.ApplyTheme(_themeManager);
+        _searchDialog?.ApplyTheme();
 
         // Force the status bar popups to inherit the themed colors
         if (_btnLineEnding.DropDown is ToolStripDropDownMenu leMenu)
@@ -495,7 +495,7 @@ public partial class MainWindow : Form
     {
         if (_searchDialog?.IsDisposed != false)
         {
-            _searchDialog = new FindReplaceDialog(_themeManager);
+            _searchDialog = new FindReplaceDialog();
             _searchDialog.OnFindNext += (term, matchCase, matchWholeWord) => ExecuteFind(term, matchCase, matchWholeWord, true);
             _searchDialog.OnReplace += ExecuteReplace;
             _searchDialog.OnReplaceAll += ExecuteReplaceAll;
@@ -578,7 +578,7 @@ public partial class MainWindow : Form
         var currentLine = _mainTextBox.GetLineFromCharIndex(currentIndex) + 1;
         var maxLine = _mainTextBox.GetLineFromCharIndex(_mainTextBox.Text.Length) + 1;
 
-        using var dialog = new GoToLineDialog(_themeManager, currentLine, maxLine);
+        using var dialog = new GoToLineDialog(currentLine, maxLine);
         if (dialog.ShowDialog(this) == DialogResult.OK)
         {
             var charIndex = _mainTextBox.GetFirstCharIndexFromLine(dialog.LineNumber - 1);

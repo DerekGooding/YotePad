@@ -4,7 +4,7 @@ namespace YotePad.Views;
 public class RecoveryDialog : Form
 {
     private readonly RecoveryFile[] _files;
-    private readonly ThemeManager _themeManager;
+    private readonly ThemeManager _themeManager = Program.Get<ThemeManager>();
     private readonly List<RecoveryRowControl> _rows = [];
     private readonly Panel _rowPanel = new();
     private readonly Button _btnRestoreSelected = new();
@@ -13,10 +13,9 @@ public class RecoveryDialog : Form
     // Returns the files the user chose to restore
     public List<RecoveryFile> FilesToRestore { get; } = [];
 
-    public RecoveryDialog(RecoveryFile[] files, ThemeManager themeManager)
+    public RecoveryDialog(RecoveryFile[] files)
     {
         _files = files;
-        _themeManager = themeManager;
         InitializeComponent();
         ApplyTheme();
         PopulateRows();
@@ -107,8 +106,10 @@ public class RecoveryDialog : Form
             Location.Y
         );
 
-        var preview = new PreviewWindow(file, _themeManager, spawnLocation);
-        preview.Owner = this;
+        var preview = new PreviewWindow(file, spawnLocation)
+        {
+            Owner = this
+        };
 
         preview.OnRecover += (f) =>
         {

@@ -3,7 +3,7 @@ namespace YotePad.Views;
 public class PreviewWindow : Form
 {
     private readonly RecoveryFile _file;
-    private readonly ThemeManager _themeManager;
+    private readonly ThemeManager _themeManager = Program.Get<ThemeManager>();
     private readonly TextBox _txtPreview = new();
     private readonly Button _btnClose = new();
     private readonly Button _btnRecover = new();
@@ -13,10 +13,9 @@ public class PreviewWindow : Form
 
     public event Action<RecoveryFile>? OnDelete;
 
-    public PreviewWindow(RecoveryFile file, ThemeManager themeManager, Point spawnLocation)
+    public PreviewWindow(RecoveryFile file, Point spawnLocation)
     {
         _file = file;
-        _themeManager = themeManager;
         InitializeComponent(spawnLocation);
         ApplyTheme();
     }

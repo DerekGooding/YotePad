@@ -23,10 +23,10 @@ public class FindReplaceDialog : Form
 
     public event Action<string, string, bool, bool>? OnReplaceAll;
 
-    public FindReplaceDialog(ThemeManager themeManager)
+    public FindReplaceDialog()
     {
         InitializeComponent();
-        ApplyTheme(themeManager);
+        ApplyTheme();
         SetMode(false); // Default to the compact Find mode
     }
 
@@ -164,8 +164,9 @@ public class FindReplaceDialog : Form
         }
     }
 
-    public void ApplyTheme(ThemeManager theme)
+    public void ApplyTheme()
     {
+        var theme = Program.Get<ThemeManager>();
         BackColor = theme.BackgroundColor;
         ForeColor = theme.TextColor;
 

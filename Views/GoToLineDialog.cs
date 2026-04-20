@@ -9,10 +9,10 @@ public class GoToLineDialog : Form
 
     public int LineNumber { get; private set; } = -1;
 
-    public GoToLineDialog(ThemeManager themeManager, int currentLine, int maxLine)
+    public GoToLineDialog(int currentLine, int maxLine)
     {
         InitializeComponent(currentLine, maxLine);
-        ApplyTheme(themeManager);
+        ApplyTheme();
     }
 
     private void InitializeComponent(int currentLine, int maxLine)
@@ -66,8 +66,9 @@ public class GoToLineDialog : Form
         CancelButton = _btnCancel;
     }
 
-    public void ApplyTheme(ThemeManager theme)
+    public void ApplyTheme()
     {
+        var theme = Program.Get<ThemeManager>();
         BackColor = theme.BackgroundColor;
         ForeColor = theme.TextColor;
 

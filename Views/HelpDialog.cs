@@ -1,17 +1,7 @@
-using System.Runtime.InteropServices;
-
 namespace YotePad.Views;
 
 public class HelpDialog : Form
 {
-    // Import the native Windows APIs to force dark scrollbars
-    [DllImport("dwmapi.dll")]
-    private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
-
-    // Add the '?' to the final string parameter here:
-    [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
-    private static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string? pszSubIdList);
-
     public HelpDialog(Color backColor, Color foreColor)
     {
         Text = "YotePad Help";
@@ -53,10 +43,10 @@ public class HelpDialog : Form
         {
             // Force the Window title bar to use dark mode (Windows 11)
             var useImmersiveDarkMode = 1;
-            DwmSetWindowAttribute(Handle, 20, ref useImmersiveDarkMode, sizeof(int));
+            NativeMethods.DwmSetWindowAttribute(Handle, 20, ref useImmersiveDarkMode, sizeof(int));
 
             // Force the internal scrollbar to use the dark explorer theme
-            SetWindowTheme(txtHelp.Handle, "DarkMode_Explorer", null);
+            NativeMethods.SetWindowTheme(txtHelp.Handle, "DarkMode_Explorer", null);
         }
     }
 
