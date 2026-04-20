@@ -126,12 +126,12 @@ public class RecoveryService : IDisposable
                     var originalPath = header["YOTEPAD_RECOVERY|".Length..];
 
                     results.Add(new RecoveryFile
-                    {
-                        RecoveryFilePath = file,
-                        OriginalFilePath = originalPath,
-                        Content = content,
-                        Timestamp = File.GetLastWriteTime(file)
-                    });
+                    (
+                        file,
+                        originalPath,
+                        content,
+                        File.GetLastWriteTime(file)
+                    ));
                 }
                 catch { }
             }

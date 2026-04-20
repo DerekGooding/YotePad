@@ -40,7 +40,7 @@ public class ThemeManager
         textBox.BackColor = BackgroundColor;
         textBox.ForeColor = TextColor;
 
-        menu.Renderer = IsDarkMode ? new YotePadMenuRenderer(this) : new ToolStripProfessionalRenderer();
+        menu.Renderer = IsDarkMode ? new YotePadMenuRenderer() : new ToolStripProfessionalRenderer();
         menu.BackColor = MenuBackgroundColor;
         menu.ForeColor = TextColor;
 

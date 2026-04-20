@@ -1,8 +1,8 @@
 namespace YotePad.Helpers;
 
-public class YotePadMenuRenderer(ThemeManager theme) : ToolStripProfessionalRenderer()
+public class YotePadMenuRenderer : ToolStripProfessionalRenderer
 {
-    private readonly ThemeManager _theme = theme;
+    private readonly ThemeManager _theme = Program.Get<ThemeManager>();
 
     protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
     {

@@ -2,7 +2,6 @@ using System.Diagnostics;
 
 namespace YotePad.Helpers;
 
-[Scoped]
 public static class RecoveryLauncher
 {
     // Launches a new YotePad instance with the recovered content.
