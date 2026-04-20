@@ -117,12 +117,12 @@ public class RecoveryService : IDisposable
                     int newline = raw.IndexOf('\n');
                     if (newline == -1) continue;
 
-                    string header = raw.Substring(0, newline);
-                    string content = raw.Substring(newline + 1);
+                    string header = raw[..newline];
+                    string content = raw[(newline + 1)..];
 
                     if (!header.StartsWith("YOTEPAD_RECOVERY|")) continue;
 
-                    string originalPath = header.Substring("YOTEPAD_RECOVERY|".Length);
+                    string originalPath = header["YOTEPAD_RECOVERY|".Length..];
 
                     results.Add(new RecoveryFile
                     {

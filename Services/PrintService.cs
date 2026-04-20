@@ -66,7 +66,7 @@ public class PrintService
             e.MarginBounds.Width,
             e.MarginBounds.Height);
 
-        string textRemaining = _textToPrint.Substring(_currentCharIndex);
+        string textRemaining = _textToPrint[_currentCharIndex..];
 
         // Ask the Graphics object to measure how many characters will fit in the print box
         e.Graphics.MeasureString(
